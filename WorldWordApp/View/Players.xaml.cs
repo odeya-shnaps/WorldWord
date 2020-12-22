@@ -11,34 +11,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WorldWordApp
+namespace WorldWordApp.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Players.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Players : Window
     {
+        private MainWindow mainWindow;
 
-        private Games games;
-        private Players players;
-        private SignUp sign;
-
-        //private Frame frame;
-
-        public MainWindow()
+        public Players()
         {
             InitializeComponent();
-            //frame = new Frame();
-            games = new Games();
-            players = new Players();
-            sign = new SignUp();
+        }
 
-            sign.setMainWindow(this);
-            games.setMainWindow(this);
-            players.setMainWindow(this);
+        public void setMainWindow(MainWindow mainWin)
+        {
+            this.mainWindow = mainWin;
         }
 
         void Window_Closing(object sender, CancelEventArgs e)
@@ -58,28 +49,14 @@ namespace WorldWordApp
             }
             else
             {
-                sign.ShowMessage = false;
-                sign.Close();
                 // Disconnect from the server.
             }
         }
 
-        private void startPlaying_Click(object sender, RoutedEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            sign.ShowDialog();
-        }
-
-        private void seePlayers_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            players.ShowDialog();
-        }
-
-        private void seeGames_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            games.ShowDialog();
+            this.mainWindow.ShowDialog();
         }
     }
 }

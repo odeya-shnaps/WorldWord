@@ -13,16 +13,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WorldWordApp
+namespace WorldWordApp.View
 {
     /// <summary>
-    /// Interaction logic for Players.xaml
+    /// Interaction logic for Games.xaml
     /// </summary>
-    public partial class Players : Window
+    public partial class Games : Window
     {
         private MainWindow mainWindow;
 
-        public Players()
+        public Games()
         {
             InitializeComponent();
         }
@@ -31,7 +31,6 @@ namespace WorldWordApp
         {
             this.mainWindow = mainWin;
         }
-
         void Window_Closing(object sender, CancelEventArgs e)
         {
             // Notify the user and ask for a response.
@@ -52,7 +51,6 @@ namespace WorldWordApp
                 // Disconnect from the server.
             }
         }
-
         private void button_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
