@@ -1,0 +1,34 @@
+﻿<Window x:Class="WorldWordApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorldWordApp"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="images/world.jpg" Opacity="0.7"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="547*"/>
+            <ColumnDefinition Width="247*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="seePlayers" Content="Players" Height="44" Margin="186,0,0,45" Width="113" FontSize="16" FontWeight="Bold" Click="seePlayers_Click" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Button x:Name="seeGames" Content="Games" Height="44" Margin="0,0,142.6,45" Width="113" FontSize="16" FontWeight="Bold" Click="seeGames_Click" Grid.Column="1" RenderTransformOrigin="3.053,1.897" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
+        <Button x:Name="startPlaying" Content="Start Playing" Margin="350,0,62.4,45" FontSize="16" FontWeight="Bold" Click="startPlaying_Click" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="44" Width="134"/>
+        <Label x:Name="label" Content="Around The Word" HorizontalAlignment="Center" Height="63" Margin="243,29,225.6,0" VerticalAlignment="Top" Width="325" RenderTransformOrigin="0.5,0.5" Grid.Column="1" FontWeight="Bold" FontSize="36" Background="{x:Null}" Grid.ColumnSpan="2">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.362"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+
+    </Grid>
+</Window>
