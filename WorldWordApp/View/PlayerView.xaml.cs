@@ -10,18 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WorldWordApp
+namespace WorldWordApp.View
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for Player.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class PlayerView : Page
     {
-        public Window1()
+        private NavigationService ns;
+
+        public PlayerView()
         {
             InitializeComponent();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            ns = NavigationService.GetNavigationService(this);
+            ns.GoBack();
         }
     }
 }
