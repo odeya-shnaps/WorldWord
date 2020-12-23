@@ -24,12 +24,14 @@ namespace WorldWordApp.View
     {
 
         private MainWindow mainWindow;
+        private PlayGame game;
         public bool ShowMessage { get; set; }
 
         public SignUp()
         {
             InitializeComponent();
             ShowMessage = true;
+            game = new PlayGame();
         }
 
         public void setMainWindow(MainWindow mainWin)
@@ -70,6 +72,9 @@ namespace WorldWordApp.View
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+            //this.Hide();
+            //this.game.ShowDialog();
+
             Player player1 = null; //checkPlayer();
             Player player2 = null; //checkPlayer();
 

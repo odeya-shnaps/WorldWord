@@ -66,8 +66,7 @@
     <Compile Include="DB\DataBaseConnector.cs" />
     <Compile Include="Objects\Game.cs" />
     <Compile Include="Objects\Player.cs" />
-    <Compile Include="Objects\Query.cs" />
-    <Compile Include="Objects\Question.cs" />
+   
     <Compile Include="View\SignUp.xaml.cs">
       <DependentUpon>SignUp.xaml</DependentUpon>
     </Compile>
@@ -94,6 +93,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Players.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PlayGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
