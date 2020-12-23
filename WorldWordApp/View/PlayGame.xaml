@@ -23,7 +23,7 @@
                    TextAlignment="Center" Text="With regard to Time's Person of the Year, what is the number of different categories given to people from the united states"  
                    Height="147" Width="491" HorizontalAlignment="Left" VerticalAlignment="Top"                   
                    FontSize="27" FontWeight="Bold"/>
-        <TextBlock x:Name="player" HorizontalAlignment="Left" Margin="19,21,0,0" TextWrapping="Wrap" TextAlignment="Center" Text="Player 1" VerticalAlignment="Top" Height="26" Width="79" FontSize="18" Background="Coral"/>
+        <TextBlock x:Name="player" HorizontalAlignment="Left" Margin="19,21,0,0" TextWrapping="Wrap" TextAlignment="Center" Text="Turn of: Player 1" VerticalAlignment="Top" Height="53" Width="79" FontSize="18" Background="Coral"/>
         <TextBlock HorizontalAlignment="Left" Margin="17,40.333,0,0" TextWrapping="Wrap" Text="Time left:" VerticalAlignment="Top" Foreground="Red" FontSize="20" Grid.Row="1"/>
         <TextBlock x:Name="time" TextAlignment="Center" HorizontalAlignment="Left" Margin="38,73.333,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Height="39" Width="42" FontSize="30" Foreground="Red" RenderTransformOrigin="1.187,2.676" Grid.Row="1"/>
         <TextBox x:Name="answer" Grid.Column="1" HorizontalAlignment="Left" Height="32" Margin="144.667,33.333,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="264" FontSize="20" FontWeight="Bold"/>
