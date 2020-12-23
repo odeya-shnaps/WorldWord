@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WorldWordApp.Data_Access_Layer;
+using WorldWordApp.Objects;
 
 namespace WorldWordApp.View
 {
@@ -20,6 +22,7 @@ namespace WorldWordApp.View
     /// </summary>
     public partial class SignUp : Window
     {
+
         private MainWindow mainWindow;
         public bool ShowMessage { get; set; }
 
@@ -67,6 +70,14 @@ namespace WorldWordApp.View
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+            Player player1 = null; //checkPlayer();
+            Player player2 = null; //checkPlayer();
+
+            //checkPlayer();  PlayersDA.RetrieveUser("firstPlayer")
+            string[] categories = { "1", "2", "3" };
+            List<Question> questions = QueryDA.CreateQuestions(categories);
+
+            Game game = new Game(player1, player2, questions);
 
         }
     }
