@@ -8,14 +8,14 @@ namespace WorldWordApp.Objects
 {
     class Player
     {
-        public Player(string name, string userId)
+        public Player(string name, int highScore)
         {
             PlayerName = name;
-            UserId = userId;
+            UserHighScore = highScore;
         }
 
         public String PlayerName { get; set; }
 
-        public String UserId { get; set; }
+        public int UserHighScore { get; set; }
     }
 }

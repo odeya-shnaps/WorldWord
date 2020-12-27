@@ -40,7 +40,6 @@ namespace WorldWordApp.View
             sign.setMainWindow(this);
             games.setMainWindow(this);
             players.setMainWindow(this);
-            DataBaseConnector.EstablishConnection("127.0.0.1", "root", "987654", "world_word_db");
         }
 
         void Window_Closing(object sender, CancelEventArgs e)
