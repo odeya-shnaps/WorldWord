@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WorldWordApp.Data_Access_Layer;
+using WorldWordApp.DB;
 using WorldWordApp.Objects;
 
 namespace WorldWordApp.View
@@ -25,6 +26,12 @@ namespace WorldWordApp.View
 
         private MainWindow mainWindow;
         private PlayGame game;
+
+        private QueryDA queryDA;
+        private PlayersDA playerDA;
+
+        private DataBaseConnector dbConnector;
+
         public bool ShowMessage { get; set; }
 
         public SignUp()
@@ -67,22 +74,33 @@ namespace WorldWordApp.View
         {
             this.Hide();
             this.mainWindow.ShowDialog();
-            
+
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            //this.Hide();
-            //this.game.ShowDialog();
+           
+           /* this.dbConnector = new DataBaseConnector();
+            dbConnector.EstablishConnection("127.0.0.1", "root", "987654", "world_word_db");
+
+            this.queryDA = new QueryDA(dbConnector);
+            this.playerDA = new PlayersDA(dbConnector);
 
             Player player1 = null; //checkPlayer();
             Player player2 = null; //checkPlayer();
-
+            this.playerDA.InsertNewUser("bananot bepigamot");
             //checkPlayer();  PlayersDA.RetrieveUser("firstPlayer")
-            string[] categories = { "1", "2", "3" };
-            List<Question> questions = QueryDA.CreateQuestions(categories);
+            string[] categories = { "1","2" ,"3","4"};
+            List<Question> questions = this.queryDA.QuestionsGeneration(categories);
+            this.playerDA.DeleteUser("456");
+            this.playerDA.UpdateHighScore("46", 20000);
+
 
             Game game = new Game(player1, player2, questions);
+            Console.WriteLine("hereeeeeeeeeeee" + game.Questions.Count);*/
+
+            this.Hide();
+            this.game.ShowDialog();
 
         }
     }
