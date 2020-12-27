@@ -68,9 +68,6 @@
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Query.cs" />
     <Compile Include="Objects\Question.cs" />
-    <Compile Include="View\PlayerView.xaml.cs">
-      <DependentUpon>PlayerView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\PlayGame.xaml.cs">
       <DependentUpon>PlayGame.xaml</DependentUpon>
     </Compile>
@@ -99,10 +96,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\PlayerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Players.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

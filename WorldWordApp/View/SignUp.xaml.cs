@@ -88,7 +88,7 @@ namespace WorldWordApp.View
 
             Player player1 = null; //checkPlayer();
             Player player2 = null; //checkPlayer();
-            this.playerDA.InsertNewUser("bananot bepigamot");
+            this.playerDA.InsertNewUser("eden4");
             //checkPlayer();  PlayersDA.RetrieveUser("firstPlayer")
             string[] categories = { "1","2" ,"3","4"};
             List<Question> questions = this.queryDA.QuestionsGeneration(categories);
