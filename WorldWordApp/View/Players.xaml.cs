@@ -24,7 +24,7 @@ namespace WorldWordApp.View
         private MainWindow mainWindow;
         public bool ShowMessage { get; set; }
         public bool IsClosed { get; private set; }
-        List<Player> players;
+        private List<Player> players;
 
         public Players()
         {
