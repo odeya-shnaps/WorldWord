@@ -30,26 +30,26 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="57" Margin="250,-1,0,0" TextWrapping="Wrap" Text="Games" VerticalAlignment="Top" Width="289" FontWeight="Bold" FontSize="36" TextAlignment="Center" BorderBrush="{x:Null}" Grid.ColumnSpan="2"/>
         <Button x:Name="button" Content="back" HorizontalAlignment="Left" Height="42" Margin="211.333,2,0,0" VerticalAlignment="Top" Width="148" Click="button_Click" Grid.Column="1" Grid.Row="11"/>
-        <TextBlock x:Name="name1" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name2" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name3" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name4" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="4" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name5" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="5" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name6" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="6" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name7" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="7" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name8" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="8" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name9" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="9" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="name10" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="10" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
-        <TextBlock x:Name="score1" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score2" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score3" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score4" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="4" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score5" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="5" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score6" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="6" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score7" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="7" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score8" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="8" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score9" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="9" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
-        <TextBlock x:Name="score10" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="10" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="name1" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name2" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name3" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name4" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="4" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name5" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="5" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name6" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="6" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name7" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name8" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="8" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name9" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="9" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="name10" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="10" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
+        <TextBlock x:Name="score1" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score2" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score3" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score4" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="4" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score5" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="5" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score6" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="6" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score7" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score8" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="8" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score9" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="9" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
+        <TextBlock x:Name="score10" Grid.Column="1" HorizontalAlignment="Left" Margin="25,1,0,0" Grid.Row="10" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="112" FontSize="20"/>
 
     </Grid>
 </Window>

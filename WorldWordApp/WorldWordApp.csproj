@@ -164,9 +164,7 @@
     <Content Include="images\circle-world.jfif" />
     <Content Include="images\colorful-letters.jfif" />
     <Content Include="images\colors.jfif" />
-    <Resource Include="images\people4.jpg" />
-    <Resource Include="images\people5.png" />
-    <Resource Include="images\people8.png" />
+    <Resource Include="images\people.png" />
     <Content Include="images\plan.jfif" />
     <Resource Include="images\scores.jpg" />
     <Resource Include="images\old-letters.jpg" />
