@@ -8,8 +8,16 @@
         Closing="Window_Closing"
         Title="Winner" Height="450" Width="800">
     <Grid>
-        <Button x:Name="button" Content="main window &gt;&gt;" HorizontalAlignment="Left" Height="39" Margin="582,51,0,0" VerticalAlignment="Top" Width="170" Click="toMainWindow_Click"/>
-        <Button x:Name="button1" Content="High Scores" HorizontalAlignment="Left" Height="37" Margin="600,134,0,0" VerticalAlignment="Top" Width="152" Click="toScores_Click"/>
-
+        <Grid.Background>
+            <ImageBrush ImageSource="../images/winBackground.jpg" Stretch="UniformToFill" Opacity="0.8"/>
+        </Grid.Background>
+        <TextBlock x:Name="theWinner" HorizontalAlignment="Left" Margin="137,87,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="92" Width="508" FontSize="35" FontWeight="Bold" TextAlignment="Center" FontFamily="Broadway" />
+        <TextBlock x:Name="player2" HorizontalAlignment="Left" Margin="425,199,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="50" Width="150" FontSize="25" TextAlignment="Center" FontFamily="Comic Sans MS" FontWeight="Bold"/>
+        <TextBlock x:Name="player1" HorizontalAlignment="Left" Margin="163,199,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="50" Width="150" FontSize="25" TextAlignment="Center" FontFamily="Comic Sans MS" FontWeight="Bold"/>
+        <TextBlock x:Name="score2" HorizontalAlignment="Left" Margin="397,250,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="50" Width="200" FontSize="25" TextAlignment="Center" FontFamily="Comic Sans MS" FontWeight="Bold"/>
+        <TextBlock x:Name="score1" HorizontalAlignment="Left" Margin="131,250,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="50" Width="200" FontSize="25" TextAlignment="Center" FontFamily="Comic Sans MS" FontWeight="Bold"/>
+        <Button x:Name="button" Content="main window &gt;&gt;" HorizontalAlignment="Left" Height="37" Margin="586,344,0,0" VerticalAlignment="Top" Width="170" Click="toMainWindow_Click"/>
+        <Button x:Name="button1" Content="High Scores" HorizontalAlignment="Left" Height="37" Margin="48,344,0,0" VerticalAlignment="Top" Width="152" Click="toScores_Click"/>
+        
     </Grid>
 </Window>

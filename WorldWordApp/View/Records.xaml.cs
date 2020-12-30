@@ -76,6 +76,14 @@ namespace WorldWordApp.View
         public void SetAllScores(List<Score> scores)
         {
             highScores = scores;
+            int i;
+            for (i = 1; i <= scores.Count; i++)
+            {
+                TextBlock txt = this.FindName("name" + i) as TextBlock;
+                txt.Text = scores[i-1].Name;
+                txt = this.FindName("score" + i) as TextBlock;
+                txt.Text = scores[i-1].HighScore.ToString();
+            }
         }
     }
 }

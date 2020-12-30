@@ -256,12 +256,17 @@ namespace WorldWordApp.Game_Logic
 
         public List<Score> GetHighScors()
         {
-            return new List<Score>();
+            List<Score> scores = new List<Score>();
+            scores.Add(new Score("ora", 10));
+            scores.Add(new Score("amir", 10));
+            return scores;
         }
 
         public List<Player> GetAllPlayers()
-        {
-            return new List<Player>();
+        {            
+            List < Player > players = new List<Player>();
+            players.Add(new Player("ora", 5));
+            return players;
         }
 
         public void StartGame(string name1, string name2, string[] categories)
