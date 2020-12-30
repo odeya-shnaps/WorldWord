@@ -80,8 +80,10 @@ namespace WorldWordApp.View
 
         private void toScores_Click(object sender, RoutedEventArgs e)
         {
+            Records records = mainWindow.records;
+            records.SetAllScores(mainWindow.gameLogic.GetHighScors());
             ShowMessage = false;
-            mainWindow.records.Show();
+            records.Show();
             this.Close();
         }
     }

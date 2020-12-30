@@ -107,9 +107,9 @@ namespace WorldWordApp.View
 
         private void seeRecords_Click(object sender, RoutedEventArgs e)
         {
+            records.SetAllScores(gameLogic.GetHighScors());
             this.Hide();
             records.ShowDialog();
         }
-
     }
 }

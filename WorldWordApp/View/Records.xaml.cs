@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using WorldWordApp.Game_Logic;
+using WorldWordApp.Objects;
 
 namespace WorldWordApp.View
 {
@@ -26,6 +27,7 @@ namespace WorldWordApp.View
         private MainWindow mainWindow;
         public bool ShowMessage { get; set; }
         public bool IsClosed { get; private set; }
+        List<Score> highScores;
 
         public Records()
         {
@@ -69,6 +71,11 @@ namespace WorldWordApp.View
         {
             this.Hide();
             this.mainWindow.ShowDialog();
+        }
+
+        public void SetAllScores(List<Score> scores)
+        {
+            highScores = scores;
         }
     }
 }
