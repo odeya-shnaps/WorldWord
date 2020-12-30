@@ -64,6 +64,9 @@
     <Compile Include="Data Access Layer\PlayersDA.cs" />
     <Compile Include="DB\DataBaseConnector.cs" />
     <Compile Include="Objects\Player.cs" />
+    <Compile Include="View\endGame.xaml.cs">
+      <DependentUpon>endGame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
@@ -76,6 +79,10 @@
     <Compile Include="View\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\endGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Games.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,11 +159,16 @@
     <Resource Include="images\letters.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\endBackground.jpg" />
     <Content Include="images\blue-world.jfif" />
     <Content Include="images\circle-world.jfif" />
     <Content Include="images\colorful-letters.jfif" />
     <Content Include="images\colors.jfif" />
+    <Resource Include="images\people4.jpg" />
+    <Resource Include="images\people5.png" />
+    <Resource Include="images\people8.png" />
     <Content Include="images\plan.jfif" />
+    <Resource Include="images\scores.jpg" />
     <Resource Include="images\old-letters.jpg" />
     <Resource Include="images\modern-letters.jpg" />
   </ItemGroup>

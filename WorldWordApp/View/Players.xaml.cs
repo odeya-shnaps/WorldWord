@@ -25,6 +25,24 @@ namespace WorldWordApp.View
         public Players()
         {
             InitializeComponent();
+            List<User> users = new List<User>();
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            /*users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });
+            users.Add(new User() { High_score = 1, Name = "John Doe" });*/
+            dgSimple.ItemsSource = users;
         }
 
         public void setMainWindow(MainWindow mainWin)
@@ -58,5 +76,12 @@ namespace WorldWordApp.View
             this.Hide();
             this.mainWindow.ShowDialog();
         }
+    }
+
+    public class User
+    {
+        public string Name { get; set; }
+        public int High_score { get; set; }
+
     }
 }

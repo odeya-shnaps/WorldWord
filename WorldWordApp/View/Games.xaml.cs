@@ -25,6 +25,20 @@ namespace WorldWordApp.View
         public Games()
         {
             InitializeComponent();
+            string name = "name";
+            int i;
+            for (i = 1; i <=10; i++)
+            {
+                TextBlock txt = this.FindName(name+i) as TextBlock;
+                txt.Text = name + i;
+            }
+            string score = "score";
+            for (i = 1; i <= 10; i++)
+            {
+                TextBlock txt = this.FindName(score + i) as TextBlock;
+                txt.Text = score + i;
+            }
+
         }
 
         public void setMainWindow(MainWindow mainWin)
