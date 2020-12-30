@@ -1,4 +1,4 @@
-﻿<Window x:Class="WorldWordApp.View.Games"
+﻿<Window x:Class="WorldWordApp.View.Records"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,8 +7,7 @@
         Closing="Window_Closing"
         Title="Games" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="75" Margin="238,82,0,0" TextWrapping="Wrap" Text="Games" VerticalAlignment="Top" Width="289" FontWeight="Bold" FontSize="36" TextAlignment="Center" BorderBrush="{x:Null}"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="75" Margin="246,28,0,0" TextWrapping="Wrap" Text="High Scores" VerticalAlignment="Top" Width="289" FontWeight="Bold" FontSize="36" TextAlignment="Center" BorderBrush="{x:Null}"/>
         <Button x:Name="button" Content="back" HorizontalAlignment="Left" Height="42" Margin="595,335,0,0" VerticalAlignment="Top" Width="148" Click="button_Click"/>
-
     </Grid>
 </Window>

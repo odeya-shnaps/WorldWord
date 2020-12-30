@@ -15,47 +15,49 @@ namespace WorldWordApp.Data_Access_Layer
         private static MySqlCommand cmd = null;
         private static DataTable dt;
         private static MySqlDataAdapter sda;
+        private DataBaseConnector dbConnector;
 
 
-        public static List<Player> RetrieveUser(string username)
+        public PlayersDA(DataBaseConnector dbConnector)
         {
-            string query = "SELECT * FROM world_word_db.players where name = (@username)";
-            cmd = DataBaseConnector.RunPlayerQuery(query, null, username, null);
+            this.dbConnector = dbConnector;
+        }
+
+
+        public List<Player> RetrieveUser(string userName1, string userName2)
+        {
+            string query = "SELECT * FROM world_word_db.players WHERE name = (@username1) OR name = (@username2)";
+            dt = dbConnector.RunPlayersQuery(query, userName1, userName2, "SELECT");
             List<Player> aUser = new List<Player>();
 
-            //Player[] aUser = new Player[3];
-            if (cmd != null)
+            if (dt.Rows.Count != 0)
             {
-                dt = new DataTable();
-                sda = new MySqlDataAdapter(cmd);
-                sda.Fill(dt);
                 int i = 0;
                 foreach (DataRow dr in dt.Rows)
                 {
                     string uName = dr["name"].ToString();
-                    string userId = dr["userid"].ToString();
-                    aUser.Add(new Player(uName, userId));
+                    int userScore = Convert.ToInt32(dr["high_score"]);
+                    aUser.Add(new Player(uName, userScore));
                     i++;
                 }
             }
             return aUser;
         }
 
-        public static void InsertNewUser(string username, string userId)
+        public void InsertNewUser(string userName, int score)
         {
-            string query = "INSERT INTO `world_word_db`.`players` (`userid`, `name`, `high_score`) VALUES ((@userid), (@username), '0')";
-            cmd = DataBaseConnector.RunPlayerQuery(query, userId, username, null);
-
+            string query = "INSERT INTO `world_word_db`.`players` (`name`, `high_score`) VALUES ((@username), (@highscore))";
+            dbConnector.RunPlayerQuery(query, userName, score, "INSERT");
         }
-        public static void DeleteUser(string userId)
+        public void DeleteUser(string userName)
         {
-            string query = "DELETE FROM `world_word_db`.`players` WHERE(`userid` = (@userid))";
-            cmd = DataBaseConnector.RunPlayerQuery(query, userId, null, null);
+            string query = "DELETE FROM `world_word_db`.`players` WHERE(`name` = (@username))";
+            dbConnector.RunPlayerQuery(query, userName, null, "DELETE");
         }
-        public static void UpdateHighScore(string userId, int newScore)
+        public void UpdateHighScore(string userName, int newScore)
         {
-            string query = "UPDATE `world_word_db`.`players` SET `high_score` = (@highscore) WHERE(`userid` = (@userid))";
-            cmd = DataBaseConnector.RunPlayerQuery(query, userId, null, newScore);
+            string query = "UPDATE `world_word_db`.`players` SET `high_score` = (@highscore) WHERE(`name` = (@username))";
+            dbConnector.RunPlayerQuery(query, userName, newScore, "UPDATE");
         }
 
     }

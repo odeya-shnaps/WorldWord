@@ -21,25 +21,20 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Button x:Name="button" Content="&gt;&gt;" HorizontalAlignment="Right" Height="36" Margin="0,17,37,0" VerticalAlignment="Top" Width="46" Click="button_Click" FontSize="20" FontWeight="Bold" Grid.Column="2"/>
-        <TextBlock x:Name="textBlock" Grid.Column="0" Grid.Row="1" Margin="66,47,0,0" TextWrapping="Wrap" Text="Name" Height="23" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
-        <TextBlock x:Name="textBlock1" Grid.Column="0" Grid.Row="1" Height="21" Margin="66,80,0,0" TextWrapping="Wrap" Width="133" Text="Personal Number" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+        <TextBlock x:Name="textBlock" Grid.Column="0" Grid.Row="1" Margin="96,46.6,0,0" TextWrapping="Wrap" Text="Name" Height="23" Width="88" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="name1" Grid.Column="0" Grid.Row="1" Height="23" Margin="204,47,0,0" TextWrapping="Wrap" Width="183" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="textBlock2" Height="50" Margin="164,10,165,3" TextWrapping="Wrap" Text="Enter Game Details" Width="465" TextAlignment="Center" FontWeight="Bold" FontSize="36" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="textBlock3" Grid.Column="0" Grid.Row="1" Height="33" Margin="66,5,0,0" TextWrapping="Wrap" Text="Player 1" Width="111" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="71,41,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Height="23" Width="88" Grid.Row="2" FontSize="16"/>
-        <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Height="21" Margin="71,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="137" Text="Personal Number" Grid.Row="2" FontSize="16"/>
-        <TextBox x:Name="name2" HorizontalAlignment="Left" Height="23" Margin="204,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183" Grid.Row="2" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="textBlock4" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Height="33" Margin="66,0,0,0" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Width="111" FontSize="18" FontWeight="Bold"/>
+        <TextBlock x:Name="textBlock3" Grid.Column="0" Grid.Row="1" Height="33" Margin="96,4.6,0,0" TextWrapping="Wrap" Text="Player 1" Width="111" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="96,144.6,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Height="23" Width="88" Grid.Row="1" FontSize="16"/>
+        <TextBox x:Name="name2" HorizontalAlignment="Left" Height="23" Margin="204,144.6,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183" Grid.Row="1" Grid.ColumnSpan="2" FontSize="16"/>
+        <TextBlock x:Name="textBlock4" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="33" Margin="96,106.6,0,0" TextWrapping="Wrap" Text="Player 2" VerticalAlignment="Top" Width="111" FontSize="18" FontWeight="Bold"/>
         <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" Height="33" Margin="132,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="228" FontWeight="Bold" FontSize="18" Grid.Column="2" Grid.Row="1"><Run Text="Choose "/><Run Text="Genres"/></TextBlock>
         <CheckBox x:Name="olympics" Content="Olympics" HorizontalAlignment="Left" Margin="132,48,0,0" VerticalAlignment="Top" Width="129" Height="23" Grid.Column="2" Grid.Row="1" FontSize="14"/>
         <CheckBox x:Name="demography" Content="Demography" HorizontalAlignment="Left" Height="21" Margin="132,81,0,0" VerticalAlignment="Top" Width="111" Grid.Column="2" Grid.Row="1" FontSize="14"/>
         <CheckBox x:Name="people" Content="Significant People" HorizontalAlignment="Left" Height="21" Margin="132,148,0,0" VerticalAlignment="Top" Width="129" Grid.Column="2" Grid.Row="1" FontSize="14"/>
         <CheckBox x:Name="geography" Content="Geography" HorizontalAlignment="Left" Height="21" Margin="132,113,0,0" VerticalAlignment="Top" Width="111" Grid.Column="2" Grid.Row="1" FontSize="14"/>
         <Button x:Name="button1" Content="SUBMIT" HorizontalAlignment="Left" Height="39" Margin="132,59,0,0" VerticalAlignment="Top" Width="129" Click="button1_Click" FontWeight="Bold" Grid.Column="2" Grid.Row="2" FontSize="18"/>
-        <TextBlock x:Name="error_player1" Grid.Column="0" Grid.Row="1" Height="32" Margin="66,121,0,0" TextWrapping="Wrap" Text="" Width="321" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="error_player2" HorizontalAlignment="Left" Height="32" Margin="71,116,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="316" Grid.Row="2" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="number1" Grid.Column="0" Grid.Row="1" Height="23" Margin="204,80,0,0" TextWrapping="Wrap" Width="183" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="name2_Copy" HorizontalAlignment="Left" Height="23" Margin="204,73,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183" Grid.Row="2" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="wait" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="53" Margin="10,45.4,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" FontSize="24" TextAlignment="Center" FontWeight="Bold"/>
 
     </Grid>
 </Window>
