@@ -53,6 +53,16 @@ namespace WorldWordApp.DB
             return dt;
         }
 
+        public DataTable RunPlayersQuery(string query, string userName1, string userName2, string type)
+        {
+            CreateCommandForDB(query, false);
+
+            cmd.Parameters.AddWithValue("@username1", userName1);
+            cmd.Parameters.AddWithValue("@username2", userName2);
+
+            RunQuery(cmd, type);
+            return dt;
+        }
 
         public DataTable RetrieveQueryByCategory(string query, int category)
         {

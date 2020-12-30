@@ -39,24 +39,24 @@ namespace WorldWordApp.Data_Access_Layer
 
             /*this.updateThread = new Thread(delegate ()
             {*/
-                try
-                {
-                    // retrieving questions queries from DB
-                    RetrievingQueries(categories);
-                    questionsList = new List<Question>();
-                    // creating question objects
-                    CreateQuestionsList();
+            try
+            {
+                // retrieving questions queries from DB
+                RetrievingQueries(categories);
+                questionsList = new List<Question>();
+                // creating question objects
+                CreateQuestionsList();
 
 
-                }
-                catch (System.Threading.ThreadAbortException)
-                {
-                    // ignoring - do nothing
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Failed creating questions for the game", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (System.Threading.ThreadAbortException)
+            {
+                // ignoring - do nothing
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed creating questions for the game", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             /*});
             this.updateThread.Start();*/
 
@@ -64,7 +64,7 @@ namespace WorldWordApp.Data_Access_Layer
             return questionsList;
         }
 
-
+        // for each category get the query and add to a list
         public void RetrievingQueries(string[] categories)
         {
             // retrievingQueries
@@ -104,7 +104,7 @@ namespace WorldWordApp.Data_Access_Layer
             }
         }
 
-
+        // ask only the query that are not the same (happan when few category)
         public List<Question> CreateQuestionsList()
         {
             // all the same queries will be next to each other - so execute once
@@ -126,13 +126,13 @@ namespace WorldWordApp.Data_Access_Layer
                 else
                 {
                     // the last query equals to prev
-                    if(index == queriesList.Count)
+                    if (index == queriesList.Count)
                     {
                         sameQuery++;
                     }
 
-                    sameQuestionsCreation(prevQuery,sameQuery);
-                    
+                    sameQuestionsCreation(prevQuery, sameQuery);
+
                     sameQuery = 1;
                     prevQuery = questionQuery;
                     id = questionQuery.Id;
@@ -142,6 +142,7 @@ namespace WorldWordApp.Data_Access_Layer
             return questionsList;
         }
 
+        // ask the query and add random rows from the answer to question list.
         public void sameQuestionsCreation(Query prevQuery, int sameQuery)
         {
             string query = prevQuery.QueryString;
@@ -178,14 +179,15 @@ namespace WorldWordApp.Data_Access_Layer
             var answer = dr.ItemArray[q.AnswerColumn - 1];
             if (q.Type == 3)
             {
-                
+
                 answer = String.Format("{0:F1}", answer);
             }
-            
+
             Question qu = new Question(finalQuestion, answer.ToString());
             return qu;
         }
 
+        // select random rows to select real question.
         public IEnumerable<DataRow> SelectRows(int sameQuery)
         {
             var rand = new Random();
