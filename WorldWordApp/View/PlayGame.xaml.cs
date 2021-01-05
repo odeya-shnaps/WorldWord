@@ -134,6 +134,7 @@ namespace WorldWordApp.View
 
         private void EndRound()
         {
+            //sleep!!!
             // status, correct answer,...
             round += 1;
             if (round == 4)
