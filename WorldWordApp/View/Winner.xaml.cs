@@ -17,30 +17,24 @@ using WorldWordApp.Objects;
 namespace WorldWordApp.View
 {
     /// <summary>
-    /// Interaction logic for Players.xaml
+    /// Interaction logic for Winner.xaml
     /// </summary>
-    public partial class Players : Window
+    public partial class Winner : Window
     {
-        private MainWindow mainWindow;
         public bool ShowMessage { get; set; }
-        public bool IsClosed { get; private set; }
-        private List<Player> players;
+        private MainWindow mainWindow;
+        private Player winner;
+        private Player loser;
+        private bool isTie;
 
-        public Players()
+        public Winner()
         {
             InitializeComponent();
             ShowMessage = true;
-
-        }
-
-        public void setMainWindow(MainWindow mainWin)
-        {
-            this.mainWindow = mainWin;
         }
 
         void Window_Closing(object sender, CancelEventArgs e)
         {
-            IsClosed = true;
             if (ShowMessage)
             {
                 // Notify the user and ask for a response.
@@ -65,33 +59,43 @@ namespace WorldWordApp.View
             }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        public void SetWinnerAndScore(Player win, Player lose, bool tie)
         {
-            this.Hide();
-            this.mainWindow.ShowDialog();
-        }
-
-        public void SetAllPlayers(List<Player> allPlayers)
-        {
-            this.players = allPlayers;
-        }
-
-        public void SetPlayersList()
-        {
-            List<Person> people = new List<Person>();
-            for (int i = 0; i < players.Count(); i++)
+            winner = win;
+            loser = lose;
+            isTie = tie;
+            if (tie == true)
             {
-                people.Add(new Person() { High_score = players[i].UserHighScore, Name = players[i].PlayerName });
+                theWinner.Text = "It's a tie!!!";
+            } else {
+                theWinner.Text = "And the winner is " + win.PlayerName + "!!!";
             }
-            dgSimple.ItemsSource = people;
+            player1.Text = win.PlayerName;
+            player2.Text = lose.PlayerName;
+            score1.Text = win.CurrentScore.ToString()+ " points";
+            score2.Text = lose.CurrentScore.ToString()+ " points";
+
         }
-    }
 
+        public void setMainWindow(MainWindow mainWin)
+        {
+            this.mainWindow = mainWin;
+        }
 
-    public class Person
-    {
-        public string Name { get; set; }
-        public int High_score { get; set; }
+        private void toMainWindow_Click(object sender, RoutedEventArgs e)
+        {
+            ShowMessage = false;
+            this.Close();
+            mainWindow.Show();
+        }
 
+        private void toScores_Click(object sender, RoutedEventArgs e)
+        {
+            Records records = mainWindow.records;
+            records.SetAllScores(mainWindow.gameLogic.GetHighScors());
+            ShowMessage = false;
+            records.Show();
+            this.Close();
+        }
     }
 }

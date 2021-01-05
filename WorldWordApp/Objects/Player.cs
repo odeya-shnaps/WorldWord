@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace WorldWordApp.Objects
 {
-    class Player
+    public class Player
     {
+
+        public Player(string name)
+        {
+            PlayerName = name;
+            CurrentScore = 0;
+            Life = 2;
+        }
+
         public Player(string name, int highScore)
         {
             PlayerName = name;
@@ -17,5 +25,11 @@ namespace WorldWordApp.Objects
         public String PlayerName { get; set; }
 
         public int UserHighScore { get; set; }
+
+        public String UserId { get; set; }
+
+        public int CurrentScore { get; set; }
+
+        public int Life { get; set; }
     }
 }

@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="MySql.Data, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -64,23 +64,21 @@
     <Compile Include="Data Access Layer\PlayersDA.cs" />
     <Compile Include="Data Access Layer\QueryDA.cs" />
     <Compile Include="DB\DataBaseConnector.cs" />
-    <Compile Include="Objects\Game.cs" />
+    <Compile Include="Game Logic\GameLogic.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Query.cs" />
     <Compile Include="Objects\Question.cs" />
-    <Compile Include="View\PlayerView.xaml.cs">
-      <DependentUpon>PlayerView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Objects\Score.cs" />
     <Compile Include="View\PlayGame.xaml.cs">
       <DependentUpon>PlayGame.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SignUp.xaml.cs">
       <DependentUpon>SignUp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="View\Winner.xaml.cs">
+      <DependentUpon>Winner.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\Games.xaml">
+    <Page Include="View\Records.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,17 +90,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\Games.xaml.cs">
-      <DependentUpon>Games.xaml</DependentUpon>
+    <Compile Include="View\Records.xaml.cs">
+      <DependentUpon>Records.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\PlayerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Players.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,7 +109,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Window1.xaml">
+    <Page Include="View\Winner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,13 +150,19 @@
     <Resource Include="images\letters.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\scores.jpg" />
+    <Resource Include="images\winBackground.jpg" />
     <Content Include="images\blue-world.jfif" />
     <Content Include="images\circle-world.jfif" />
     <Content Include="images\colorful-letters.jfif" />
     <Content Include="images\colors.jfif" />
+    <Resource Include="images\people.png" />
     <Content Include="images\plan.jfif" />
     <Resource Include="images\old-letters.jpg" />
     <Resource Include="images\modern-letters.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

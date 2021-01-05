@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WorldWordApp.Objects
 {
-    class Question
+    public class Question
     {
         public Question(string question, string answer)
         {

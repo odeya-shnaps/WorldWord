@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WorldWordApp.DB;
+using WorldWordApp.Game_Logic;
 
 namespace WorldWordApp.View
 {
@@ -23,91 +24,93 @@ namespace WorldWordApp.View
     public partial class MainWindow : Window
     {
 
-        private Games games;
+        public Records records;
         private Players players;
         private SignUp sign;
-
-        //private Frame frame;
+        public bool ShowMessage { get; set; }
+        public GameLogic gameLogic;
 
         public MainWindow()
         {
             InitializeComponent();
-            //frame = new Frame();
-            games = new Games();
+            records = new Records();
             players = new Players();
             sign = new SignUp();
+            gameLogic = new GameLogic();
+            ShowMessage = true;
 
             sign.setMainWindow(this);
-            games.setMainWindow(this);
+            records.setMainWindow(this);
             players.setMainWindow(this);
+            //gameLogic.Connect();
         }
 
         void Window_Closing(object sender, CancelEventArgs e)
         {
-            // Notify the user and ask for a response.
-            string msg = "Are You Sure You Want To Close The Application?";
-            MessageBoxResult result =
-              MessageBox.Show(
-                msg,
-                "World Word App",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
-            if (result == MessageBoxResult.No)
+            if (ShowMessage)
             {
-                // If user doesn't want to close, cancel closure.
-                e.Cancel = true;
+                // Notify the user and ask for a response.
+                string msg = "Are You Sure You Want To Close The Application?";
+                MessageBoxResult result =
+                  MessageBox.Show(
+                    msg,
+                    "World Word App",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+                if (result == MessageBoxResult.No)
+                {
+                    // If user doesn't want to close, cancel closure.
+                    e.Cancel = true;
+                }
+                else
+                {
+                    Close_Game();
+                }
             }
-            else
+        }
+
+        public void Close_Game()
+        {
+            if (!sign.IsClosed)
             {
                 sign.ShowMessage = false;
                 sign.Close();
-                // Disconnect from the server.
             }
+            if (!records.IsClosed)
+            {
+                records.ShowMessage = false;
+                records.Close();
+            }
+            if (!players.IsClosed)
+            {
+                players.ShowMessage = false;
+                players.Close();
+            }
+            // add **all** windows
+            //DataBaseConnector.close();
+            // Disconnect from the server.
         }
 
         private void startPlaying_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+            sign.ResetDetailes();
             sign.ShowDialog();
         }
 
         private void seePlayers_Click(object sender, RoutedEventArgs e)
         {
+            players.SetAllPlayers(gameLogic.GetAllPlayers());
+            players.SetPlayersList();
             this.Hide();
             players.ShowDialog();
         }
 
-        private void seeGames_Click(object sender, RoutedEventArgs e)
+        private void seeRecords_Click(object sender, RoutedEventArgs e)
         {
+            records.SetAllScores(gameLogic.GetHighScors());
             this.Hide();
-            games.ShowDialog();
+            records.ShowDialog();
         }
-
-
-        // need to change this function - it's just the base
-   /*     private void Login(string username, string userId)
-        {
-            List<Player> aUser = PlayersDA.RetrieveUser(username);
-            bool exist = false;
-            foreach (var player in aUser)
-            {
-                if (player.UserId.Equals(userId))
-                {
-                    MessageBox.Show("Login Success");
-                    *//*View_Layer.MainMenu m = new View_Layer.MainMenu();
-                    m.Show();*//*
-                    exist = true;
-                    break;
-                }
-            }
-            if (exist == false)
-            {
-                MessageBox.Show("New User");
-                PlayersDA.InsertNewUser(username, userId);
-
-            }
-        }*/
-
-
     }
 }
