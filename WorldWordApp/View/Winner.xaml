@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WorldWordApp.View"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="Winner" Height="450" Width="800">
+        Title="Winner" Height="450" Width="800" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="../images/winBackground.jpg" Stretch="UniformToFill" Opacity="0.8"/>

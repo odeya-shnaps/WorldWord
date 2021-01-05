@@ -33,13 +33,18 @@ namespace WorldWordApp.DB
                 connection.Open();
                 // if the connection succeeded it will get here. else - Exception
                 MessageBox.Show("Database is connected", "Connection Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                connection.Close();
+                //connection.Close();
 
             }
             catch (Exception)
             {
                 MessageBox.Show("Application could not connect to DB ", "Connection Failed ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public void CloseConnectionToDB()
+        {
+            connection.Close();
         }
 
         public DataTable RunPlayerQuery(string query, string userName, int? highScore, string type)
@@ -59,6 +64,17 @@ namespace WorldWordApp.DB
 
             cmd.Parameters.AddWithValue("@username1", userName1);
             cmd.Parameters.AddWithValue("@username2", userName2);
+
+            RunQuery(cmd, type);
+            return dt;
+        }
+
+        public DataTable RunHighScoresQuery(string query, int? id, string userName, int? score, string type)
+        {
+            CreateCommandForDB(query, false);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@username", userName);
+            cmd.Parameters.AddWithValue("@score", score);
 
             RunQuery(cmd, type);
             return dt;
@@ -95,7 +111,7 @@ namespace WorldWordApp.DB
             {
                 if (connection != null)
                 {
-                    connection.Open();
+                    //connection.Open();
                     switch (type)
                     {
                         case "SELECT":
@@ -108,13 +124,13 @@ namespace WorldWordApp.DB
                             cmd.ExecuteNonQuery();
                             break;
                     }
-                    connection.Close();
+                    //connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                connection.Close();
+                CloseConnectionToDB();
             }
         }
 

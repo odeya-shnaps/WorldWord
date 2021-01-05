@@ -163,7 +163,7 @@ namespace WorldWordApp.Game_Logic
 
         public void CloseConnection()
         {
-            
+            dbConnector.CloseConnectionToDB();
         }
 
         // turn if odd 1 else 2
@@ -252,21 +252,21 @@ namespace WorldWordApp.Game_Logic
                     }
                 }
             }
+            playerDA.AddToHighScoresList(player1.PlayerName, player1.CurrentScore);
+
+            playerDA.AddToHighScoresList(player2.PlayerName, player2.CurrentScore);
+
         }
 
         public List<Score> GetHighScors()
         {
-            List<Score> scores = new List<Score>();
-            scores.Add(new Score("ora", 10));
-            scores.Add(new Score("amir", 10));
-            return scores;
+            return playerDA.GetHighScoresList();
+
         }
 
         public List<Player> GetAllPlayers()
-        {            
-            List < Player > players = new List<Player>();
-            players.Add(new Player("ora", 5));
-            return players;
+        {
+            return playerDA.GetPlayersList();
         }
 
         public void StartGame(string name1, string name2, string[] categories)
