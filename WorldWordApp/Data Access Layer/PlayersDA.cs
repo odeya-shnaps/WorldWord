@@ -24,12 +24,12 @@ namespace WorldWordApp.Data_Access_Layer
         }
 
 
-        public List<Player> RetrieveUser(string userName)
+        public List<Player> RetrieveUser(string userName1, string userName2)
         {
-            string query = "SELECT * FROM world_word_db.players where name = (@username)";
-            dt = dbConnector.RunPlayerQuery(query, userName, null, "SELECT");
+            string query = "SELECT * FROM world_word_db.players WHERE name = (@username1) OR name = (@username2)";
+            dt = dbConnector.RunPlayersQuery(query, userName1, userName2, "SELECT");
             List<Player> aUser = new List<Player>();
-            
+
             if (dt.Rows.Count != 0)
             {
                 int i = 0;
@@ -44,11 +44,10 @@ namespace WorldWordApp.Data_Access_Layer
             return aUser;
         }
 
-        public void InsertNewUser(string userName)
+        public void InsertNewUser(string userName, int score)
         {
-            string query = "INSERT INTO `world_word_db`.`players` (`name`, `high_score`) VALUES ((@username), '0')";
-            dbConnector.RunPlayerQuery(query, userName, null, "INSERT");
-
+            string query = "INSERT INTO `world_word_db`.`players` (`name`, `high_score`) VALUES ((@username), (@highscore))";
+            dbConnector.RunPlayerQuery(query, userName, score, "INSERT");
         }
         public void DeleteUser(string userName)
         {
