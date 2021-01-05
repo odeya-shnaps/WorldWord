@@ -64,6 +64,17 @@ namespace WorldWordApp.View
             winner = win;
             loser = lose;
             isTie = tie;
+            if (tie == true)
+            {
+                theWinner.Text = "It's a tie!!!";
+            } else {
+                theWinner.Text = "And the winner is " + win.PlayerName + "!!!";
+            }
+            player1.Text = win.PlayerName;
+            player2.Text = lose.PlayerName;
+            score1.Text = win.CurrentScore.ToString()+ " points";
+            score2.Text = lose.CurrentScore.ToString()+ " points";
+
         }
 
         public void setMainWindow(MainWindow mainWin)

@@ -101,6 +101,7 @@ namespace WorldWordApp.View
         private void seePlayers_Click(object sender, RoutedEventArgs e)
         {
             players.SetAllPlayers(gameLogic.GetAllPlayers());
+            players.SetPlayersList();
             this.Hide();
             players.ShowDialog();
         }

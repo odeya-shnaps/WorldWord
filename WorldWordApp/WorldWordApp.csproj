@@ -150,10 +150,13 @@
     <Resource Include="images\letters.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\scores.jpg" />
+    <Resource Include="images\winBackground.jpg" />
     <Content Include="images\blue-world.jfif" />
     <Content Include="images\circle-world.jfif" />
     <Content Include="images\colorful-letters.jfif" />
     <Content Include="images\colors.jfif" />
+    <Resource Include="images\people.png" />
     <Content Include="images\plan.jfif" />
     <Resource Include="images\old-letters.jpg" />
     <Resource Include="images\modern-letters.jpg" />

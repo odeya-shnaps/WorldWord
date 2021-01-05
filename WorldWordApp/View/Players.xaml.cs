@@ -30,6 +30,7 @@ namespace WorldWordApp.View
         {
             InitializeComponent();
             ShowMessage = true;
+
         }
 
         public void setMainWindow(MainWindow mainWin)
@@ -72,7 +73,25 @@ namespace WorldWordApp.View
 
         public void SetAllPlayers(List<Player> allPlayers)
         {
-            players = allPlayers;
+            this.players = allPlayers;
         }
+
+        public void SetPlayersList()
+        {
+            List<Person> people = new List<Person>();
+            for (int i = 0; i < players.Count(); i++)
+            {
+                people.Add(new Person() { High_score = players[i].UserHighScore, Name = players[i].PlayerName });
+            }
+            dgSimple.ItemsSource = people;
+        }
+    }
+
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public int High_score { get; set; }
+
     }
 }
