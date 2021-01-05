@@ -42,7 +42,7 @@ namespace WorldWordApp.View
             sign.setMainWindow(this);
             records.setMainWindow(this);
             players.setMainWindow(this);
-            //gameLogic.Connect();
+            gameLogic.Connect();
         }
 
         void Window_Closing(object sender, CancelEventArgs e)

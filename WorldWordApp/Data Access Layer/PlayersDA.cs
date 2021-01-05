@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using WorldWordApp.DB;
 using WorldWordApp.Objects;
 
@@ -12,9 +13,7 @@ namespace WorldWordApp.Data_Access_Layer
 {
     class PlayersDA
     {
-        private static MySqlCommand cmd = null;
         private static DataTable dt;
-        private static MySqlDataAdapter sda;
         private DataBaseConnector dbConnector;
 
 
@@ -32,13 +31,11 @@ namespace WorldWordApp.Data_Access_Layer
 
             if (dt.Rows.Count != 0)
             {
-                int i = 0;
                 foreach (DataRow dr in dt.Rows)
                 {
                     string uName = dr["name"].ToString();
                     int userScore = Convert.ToInt32(dr["high_score"]);
                     aUser.Add(new Player(uName, userScore));
-                    i++;
                 }
             }
             return aUser;
@@ -59,6 +56,76 @@ namespace WorldWordApp.Data_Access_Layer
             string query = "UPDATE `world_word_db`.`players` SET `high_score` = (@highscore) WHERE(`name` = (@username))";
             dbConnector.RunPlayerQuery(query, userName, newScore, "UPDATE");
         }
+
+        // adding new score record to high_scores table
+        public void AddToHighScoresList(string userName, int score)
+        {
+            string query = "INSERT INTO `world_word_db`.`high_scores` (`player`, `score`) VALUES ((@username), (@score))";
+            dbConnector.RunHighScoresQuery(query, null, userName, score, "INSERT");
+        }
+
+        public List<Score> GetHighScoresList()
+        {
+            List<Score> scores = new List<Score>();
+
+            string query = "SELECT * FROM world_word_db.high_scores;";
+            dt = dbConnector.CreateCommandForDB(query, true);
+
+            // there are scores records in db
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    int id = Convert.ToInt32(dr["id"]);
+                    string uName = dr["player"].ToString();
+                    int userScore = Convert.ToInt32(dr["score"]);
+                    scores.Add(new Score(uName, userScore, id));
+                }
+            }
+            else
+            {
+                MessageBox.Show("no previous games", "no data in db", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            scores.Sort();
+            scores.Reverse();
+            return scores;
+        }
+
+        // delete high_score from high_score list
+        public void DeleteFromHighScoreList(int id)
+        {
+            string query = "DELETE FROM world_word_db.high_scores WHERE id = (@id);";
+            dbConnector.RunHighScoresQuery(query, id, null, null, "DELETE");
+        }
+
+
+        public List<Player> GetPlayersList()
+        {
+            List<Player> players = new List<Player>();
+
+            string query = "SELECT * FROM world_word_db.players;";
+            dt = dbConnector.CreateCommandForDB(query, true);
+
+            // there are players in db
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    string uName = dr["name"].ToString();
+                    int userHighScore = Convert.ToInt32(dr["high_score"]);
+                    players.Add(new Player(uName, userHighScore));
+                }
+            }
+            else
+            {
+                MessageBox.Show("There are no previous players", "no data in db", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            return players;
+
+        }
+
 
     }
 }

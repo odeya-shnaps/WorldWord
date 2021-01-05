@@ -155,7 +155,7 @@ namespace WorldWordApp.View
 
         private void EndGame()
         {
-            //gameLogic.UpdateOrInsertPlayers();
+            gameLogic.UpdateOrInsertPlayers();
             Winner winner = new Winner();
             List<Player> order = gameLogic.GetWinnerAndLoser();
             winner.SetWinnerAndScore(order[0], order[1], gameLogic.IsTie());
