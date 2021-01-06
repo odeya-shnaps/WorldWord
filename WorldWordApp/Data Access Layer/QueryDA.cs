@@ -18,9 +18,7 @@ namespace WorldWordApp.Data_Access_Layer
         public const int TotalNumOfQueriesInDB = 49;
 
         private DataBaseConnector dbConnector;
-        private MySqlCommand cmd = null;
         private DataTable dt;
-        private MySqlDataAdapter sda;
         private List<Question> questionsList;
         private List<Query> queriesList;
 
