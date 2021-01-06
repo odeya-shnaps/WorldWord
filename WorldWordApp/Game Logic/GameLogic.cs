@@ -29,6 +29,8 @@ namespace WorldWordApp.Game_Logic
         private int numLetters;
         private string turn_of;
         private bool tie;
+        private string answerWithoutDelimiters;
+        private char[] delimiterChars = { ' ', ',', '.', ':', '\n', '\t','-'};
 
         public GameLogic()
         {
@@ -158,7 +160,12 @@ namespace WorldWordApp.Game_Logic
         public void Connect()
         {
             // from app config
-            dbConnector.EstablishConnection("127.0.0.1", "root", "987654", "world_word_db");
+            string ip = Properties.Settings.Default["Ip"].ToString();
+            string userName = Properties.Settings.Default["UserName"].ToString();
+            string password = Properties.Settings.Default["Password"].ToString();
+            string dbName = Properties.Settings.Default["NameOfDB"].ToString();
+            dbConnector.EstablishConnection(ip, userName, password, dbName);
+            //dbConnector.EstablishConnection("127.0.0.1", "root", "987654", "world_word_db");
         }
 
         public void CloseConnection()
@@ -283,8 +290,13 @@ namespace WorldWordApp.Game_Logic
 
         public bool IsCorrectAnswer(string playerAnswer, int seconds)
         {
-            // check for ' '
-            if (playerAnswer.Equals(CurrentAnswer))
+            string splittedPlayerAns = "";
+            string[] words = playerAnswer.Split(delimiterChars);
+            foreach (string word in words)
+            {
+                splittedPlayerAns += word;
+            }
+            if (splittedPlayerAns.ToUpper().Equals(answerWithoutDelimiters.ToUpper()))
             {
                 Status = "Good job!";
                 if (turn_of.Equals(player1.PlayerName))
@@ -303,11 +315,18 @@ namespace WorldWordApp.Game_Logic
 
         public void AskQuestion()
         {
+            answerWithoutDelimiters = "";
             Status = "";
             NumQuestion += 1;
             Question q = questionsList[NumQuestion - 1];
             CurrentQuestion = q.QuestionString;
             CurrentAnswer = q.AnswerString;
+            string ans = CurrentAnswer;
+            string[] words = ans.Split(delimiterChars);
+            foreach (string word in words)
+            {
+                answerWithoutDelimiters += word;
+            }
             NumLetters = answer.Length;
         }
 
@@ -332,7 +351,8 @@ namespace WorldWordApp.Game_Logic
 
         public void EndeGame()
         {
-            //update players and scores
+            //UpdateOrInsertPlayers();
+            //update scores table
         }
 
         public List<Player> GetWinnerAndLoser()

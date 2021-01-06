@@ -33,15 +33,16 @@
         <Ellipse Fill="Bisque" HorizontalAlignment="Left" Height="58" Margin="23,117,0,0" Stroke="Black" VerticalAlignment="Top" Width="56"/>
         <Label x:Name="help" Content="{Binding Life}" HorizontalAlignment="Left" Margin="40,128,0,0" VerticalAlignment="Top" Width="24" FontSize="20" Foreground="Black" RenderTransformOrigin="0.528,2.318"/>
         <TextBlock HorizontalAlignment="Left" Margin="7,91,0,0" TextWrapping="Wrap" Text="change question" VerticalAlignment="Top" Width="98"/>
-        <TextBlock x:Name="response" Grid.Column="1" HorizontalAlignment="Left" Margin="115.667,188,0,0" TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Status}" VerticalAlignment="Top" Height="53" Width="320" FontSize="35" Foreground="Red" Grid.RowSpan="2" />
-        <Button x:Name="change_question" Content="" HorizontalAlignment="Left" Margin="21,115,0,0" VerticalAlignment="Top" Width="61" Height="60" Click="help_clicked" Opacity="0"/>
+        <TextBlock x:Name="response" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,187,0,0" TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Status}" VerticalAlignment="Top" Height="54" Width="546" FontSize="20" Foreground="Red" Grid.RowSpan="2" FontWeight="Bold" />
+        <Button x:Name="change_question" Content="2" HorizontalAlignment="Left" Margin="21,115,0,0" VerticalAlignment="Top" Width="61" Height="60" Click="help_clicked" Opacity="0"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="24,16,0,0" TextWrapping="Wrap" Text="Scores" VerticalAlignment="Top" Height="28" Width="76" FontSize="18" TextAlignment="Center" Background="DarkCyan" FontWeight="Bold"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="27,58,0,0" TextWrapping="Wrap" Text="{Binding Name1}" VerticalAlignment="Top" FontSize="16" TextAlignment="Center" Background="DarkGoldenrod" Width="71"/>
         <TextBlock x:Name="player1" Grid.Column="2" HorizontalAlignment="Left" Margin="27,82,0,0" TextWrapping="Wrap" Text="{Binding Score1}" VerticalAlignment="Top" FontSize="16" TextAlignment="Center" Height="23" Width="71" Background="DarkSeaGreen"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="27,126,0,0" TextWrapping="Wrap" Text="{Binding Name2}" VerticalAlignment="Top" FontSize="16" TextAlignment="Center" Background="DarkGoldenrod" Width="69"/>
         <TextBlock x:Name="player2" Grid.Column="2" HorizontalAlignment="Left" Margin="27,151,0,0" TextWrapping="Wrap" Text="{Binding Score2}" VerticalAlignment="Top" FontSize="16" TextAlignment="Center" Width="69" Background="DarkSeaGreen"/>
         <TextBlock x:Name="true_answer" Grid.Column="1" HorizontalAlignment="Left" Height="41" Margin="144.4,88,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" Text="{Binding CurrentAnswer}" TextAlignment="Center" FontSize="20" Visibility="Hidden"/>
-        <Button x:Name="button" Content="cheats" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="428.4,91,0,0" Grid.Row="1" VerticalAlignment="Top" Width="103" Click="seeAnswer_Click"/>
+        <Button x:Name="button" Content="cheats" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="428.4,91,0,0" Grid.Row="1" VerticalAlignment="Top" Width="103" Click="seeAnswer_Click" MouseEnter="button_MouseEnter" MouseLeave="button_MouseLeave"/>
         <TextBlock x:Name="num_letters" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="26.4,46,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" TextAlignment="Right" FontSize="16" Text="{Binding NumLetters}"/>
+        <TextBlock x:Name="explain_button" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="536.4,89,0,0" Grid.Row="1" TextWrapping="Wrap" Text="see answer" VerticalAlignment="Top" Width="85" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TextAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

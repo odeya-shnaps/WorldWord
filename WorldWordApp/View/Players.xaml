@@ -10,8 +10,8 @@
         <Grid.Background>
             <ImageBrush ImageSource="../images/people.png" Stretch="UniformToFill" Opacity="0.6"/>
         </Grid.Background>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="44" Margin="283,1,0,0" TextWrapping="Wrap" Text="Players" VerticalAlignment="Top" Width="217" FontWeight="Bold" FontSize="22" TextAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}"/>
-        <Button x:Name="button" Content="back" HorizontalAlignment="Left" Height="35" Margin="667,358,0,0" VerticalAlignment="Top" Width="96" Click="button_Click"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="53" Margin="285,10,0,0" TextWrapping="Wrap" Text="Players" VerticalAlignment="Top" Width="217" FontWeight="Bold" FontSize="36" TextAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button x:Name="button" Content="&gt;&gt;" HorizontalAlignment="Left" Height="35" Margin="714,19,0,0" VerticalAlignment="Top" Width="54" Click="button_Click" FontSize="22" FontWeight="Bold"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="40" Margin="628,287,0,0" VerticalAlignment="Top" Width="105"/>
         <DataGrid Name="dgSimple" Margin="273,81,291.333,62.667"></DataGrid>
 

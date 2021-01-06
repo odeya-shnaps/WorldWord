@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="../images/world.jpg" Opacity="0.7"/>
+            <ImageBrush ImageSource="/WorldWordApp;component/images/world.jpg" Opacity="0.7"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>

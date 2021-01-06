@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,9 +27,12 @@ namespace WorldWordApp.View
         private MainWindow mainWindow;
         public bool ShowMessage { get; set; }
         private DispatcherTimer timer;
+        private DispatcherTimer statusTimer;
         private int seconds;
         private GameLogic gameLogic;
         private int round;
+        private bool endRound;
+        private const int numRounds = 5;
 
         public PlayGame()
         {
@@ -36,6 +40,9 @@ namespace WorldWordApp.View
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
+            statusTimer = new DispatcherTimer();
+            statusTimer.Interval = TimeSpan.FromSeconds(2.5);
+            statusTimer.Tick += Status_Timer_Tick;
             round = 0;
             ShowMessage = true;
         }
@@ -66,15 +73,20 @@ namespace WorldWordApp.View
             }
         }
 
-        //player wants to submit an anser
+        //player wants to submit an answer
         private void button_Click(object sender, RoutedEventArgs e)
         {
             bool ans = gameLogic.IsCorrectAnswer(answer.Text, seconds);
             if (ans == true)
             {
                 timer.Stop();
-                EndRound();
+                endRound = true;
             }
+            else
+            {
+                endRound = false;
+            }
+            statusTimer.Start();
         }
 
         //player asked to change a question
@@ -105,39 +117,44 @@ namespace WorldWordApp.View
         {
             if (seconds >= 0)
             {
-                //time.Content = (DateTime.Now - start_time).ToString("ss");
                 time.Text = seconds.ToString();
                 seconds = seconds - 1;
             }
             else
             {
                 timer.Stop();
-                EndRound();
+                gameLogic.Status = "The Correct Answer Is:\n" + true_answer.Text;
+                endRound = true;
+                statusTimer.Start();
             }
+        }
 
+        private void Status_Timer_Tick(object sender, EventArgs e)
+        {
+            statusTimer.Stop();
+            gameLogic.Status = "";
+            if (endRound)
+            {
+                NextRound();
+            }
         }
 
         private void seeAnswer_Click(object sender, RoutedEventArgs e)
         {
-            true_answer.Visibility = Visibility.Visible;
+            if (true_answer.Visibility == Visibility.Hidden)
+            {
+                true_answer.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                true_answer.Visibility = Visibility.Hidden;
+            }
         }
 
-        public void StartGame()
+        public void NextRound()
         {
             round += 1;
-            change_question.IsEnabled = true;
-            true_answer.Visibility = Visibility.Hidden;
-            gameLogic.AskQuestion();
-            seconds = 30;
-            timer.Start();
-        }
-
-        private void EndRound()
-        {
-            //sleep!!!
-            // status, correct answer,...
-            round += 1;
-            if (round == 4)
+            if (round == numRounds)
             {
                 EndGame();
             }
@@ -156,7 +173,8 @@ namespace WorldWordApp.View
 
         private void EndGame()
         {
-            //gameLogic.UpdateOrInsertPlayers();
+            answer.Text = "";
+            gameLogic.EndeGame();
             Winner winner = new Winner();
             List<Player> order = gameLogic.GetWinnerAndLoser();
             winner.SetWinnerAndScore(order[0], order[1], gameLogic.IsTie());
@@ -166,6 +184,14 @@ namespace WorldWordApp.View
             this.Close();
         }
 
+        private void button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            explain_button.Visibility = Visibility.Visible;
+        }
 
+        private void button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            explain_button.Visibility = Visibility.Hidden;
+        }
     }
 }

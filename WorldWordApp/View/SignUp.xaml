@@ -34,7 +34,7 @@
         <CheckBox x:Name="people" Content="Significant People" HorizontalAlignment="Left" Height="21" Margin="132,148,0,0" VerticalAlignment="Top" Width="129" Grid.Column="2" Grid.Row="1" FontSize="14"/>
         <CheckBox x:Name="geography" Content="Geography" HorizontalAlignment="Left" Height="21" Margin="132,113,0,0" VerticalAlignment="Top" Width="111" Grid.Column="2" Grid.Row="1" FontSize="14"/>
         <Button x:Name="button1" Content="SUBMIT" HorizontalAlignment="Left" Height="39" Margin="132,59,0,0" VerticalAlignment="Top" Width="129" Click="button1_Click" FontWeight="Bold" Grid.Column="2" Grid.Row="2" FontSize="18"/>
-        <TextBlock x:Name="wait" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="53" Margin="10,45.4,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" FontSize="24" TextAlignment="Center" FontWeight="Bold"/>
+        <TextBlock x:Name="wait" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="53" Margin="10,45.4,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="505" FontSize="24" TextAlignment="Center" FontWeight="Bold" Foreground="#FFEE1515"/>
 
     </Grid>
 </Window>

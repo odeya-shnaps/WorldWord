@@ -68,7 +68,7 @@ namespace WorldWordApp.View
             {
                 theWinner.Text = "It's a tie!!!";
             } else {
-                theWinner.Text = "And the winner is " + win.PlayerName + "!!!";
+                theWinner.Text = "And the winner is\n" + win.PlayerName + "!!!";
             }
             player1.Text = win.PlayerName;
             player2.Text = lose.PlayerName;

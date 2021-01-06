@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using WorldWordApp.Game_Logic;
 
 namespace WorldWordApp.View
@@ -25,11 +26,15 @@ namespace WorldWordApp.View
         private PlayGame game;
         public bool ShowMessage { get; set; }
         public bool IsClosed { get; private set; }
+        private DispatcherTimer timer;
 
         public SignUp()
         {
             InitializeComponent();
             ShowMessage = true;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(3);
+            timer.Tick += Timer_Tick;
         }
 
         public void setMainWindow(MainWindow mainWin)
@@ -85,15 +90,23 @@ namespace WorldWordApp.View
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            wait.Text = "The Game will Start in a few Seconds";
-            GameLogic gl = mainWindow.gameLogic;
-            gl.StartGame(name1.Text, name2.Text, GetCategories());
-            game = new PlayGame();
-            game.SetDataContext(gl);
-            game.setMainWindow(mainWindow);
-            this.Hide();
-            this.game.Show();
-            game.StartGame();
+            if (name1.Text != "" && name2.Text != "")
+            {
+                wait.Text = "The Game will Start in a few Seconds...";
+                GameLogic gl = mainWindow.gameLogic;
+                gl.StartGame(name1.Text, name2.Text, GetCategories());
+                game = new PlayGame();
+                game.SetDataContext(gl);
+                game.setMainWindow(mainWindow);
+                this.Hide();
+                this.game.Show();
+                game.NextRound();
+            }
+            else
+            {
+                wait.Text = "Fill Names For Both Players";
+                timer.Start();
+            }
         }
 
         private string[] GetCategories()
@@ -123,6 +136,12 @@ namespace WorldWordApp.View
                 categories.Add("4");
             }
             return categories.ToArray();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            wait.Text = "";
+            timer.Stop();
         }
     }
 }

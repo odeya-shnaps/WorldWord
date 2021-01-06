@@ -28,8 +28,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="57" Margin="250,-1,0,0" TextWrapping="Wrap" Text="High Scores" VerticalAlignment="Top" Width="289" FontWeight="Bold" FontSize="36" TextAlignment="Center" BorderBrush="{x:Null}" Grid.ColumnSpan="2"/>
-        <Button x:Name="button" Content="back" HorizontalAlignment="Left" Height="42" Margin="211.333,2,0,0" VerticalAlignment="Top" Width="148" Click="button_Click" Grid.Column="1" Grid.Row="11"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="57" Margin="260,2,0,0" TextWrapping="Wrap" Text="High Scores" VerticalAlignment="Top" Width="289" FontWeight="Bold" FontSize="36" TextAlignment="Center" BorderBrush="{x:Null}" Grid.ColumnSpan="2"/>
+        <Button x:Name="button" Content="&gt;&gt;" HorizontalAlignment="Left" Height="36" Margin="319.2,17,0,0" VerticalAlignment="Top" Width="50" Click="button_Click" Grid.Column="1" FontSize="24" FontWeight="Bold" RenderTransformOrigin="0.456,0.406"/>
         <TextBlock x:Name="name1" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
         <TextBlock x:Name="name2" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>
         <TextBlock x:Name="name3" HorizontalAlignment="Left" Margin="260,1,0,0" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="26" Width="110" FontSize="20" TextAlignment="Right"/>

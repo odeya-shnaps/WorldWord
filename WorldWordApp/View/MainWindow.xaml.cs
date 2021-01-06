@@ -64,6 +64,7 @@ namespace WorldWordApp.View
                 }
                 else
                 {
+                    // closing all the open windows and the connection to the db.
                     Close_Game();
                 }
             }
@@ -86,9 +87,8 @@ namespace WorldWordApp.View
                 players.ShowMessage = false;
                 players.Close();
             }
-            // add **all** windows
-            //DataBaseConnector.close();
-            // Disconnect from the server.
+            // Disconnect from the server
+            gameLogic.CloseConnection();
         }
 
         private void startPlaying_Click(object sender, RoutedEventArgs e)
