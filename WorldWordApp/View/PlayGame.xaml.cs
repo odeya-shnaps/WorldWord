@@ -41,12 +41,29 @@ namespace WorldWordApp.View
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             statusTimer = new DispatcherTimer();
-            statusTimer.Interval = TimeSpan.FromSeconds(2.5);
+            statusTimer.Interval = TimeSpan.FromSeconds(2);
             statusTimer.Tick += Status_Timer_Tick;
             round = 0;
             ShowMessage = true;
+            cheats.IsEnabled = false;
         }
 
+        public void SetDataContext(GameLogic gl)
+        {
+            DataContext = gl;
+            gameLogic = gl;
+        }
+
+        public void setMainWindow(MainWindow mainWin)
+        {
+            this.mainWindow = mainWin;
+        }
+
+        public void SetAdminPermission()
+        {
+            cheats.IsEnabled = true;
+        }
+        // message box pop when closing, if just moving to another window don't pop.
         void Window_Closing(object sender, CancelEventArgs e)
         {
             if (ShowMessage)
@@ -66,7 +83,9 @@ namespace WorldWordApp.View
                 }
                 else
                 {
+                    // closing all the open windows and the connection to the db.
                     mainWindow.Close_Game();
+                    // closing the main window
                     mainWindow.ShowMessage = false;
                     mainWindow.Close();
                 }
@@ -76,6 +95,8 @@ namespace WorldWordApp.View
         //player wants to submit an answer
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            // check the answer, if correct show appropriate resropnse and move to next question,
+            // if not, show show appropriate resropnse for a few second and wait for other answer.
             bool ans = gameLogic.IsCorrectAnswer(answer.Text, seconds);
             if (ans == true)
             {
@@ -89,7 +110,7 @@ namespace WorldWordApp.View
             statusTimer.Start();
         }
 
-        //player asked to change a question
+        //player wants to change a question
         private void help_clicked(object sender, RoutedEventArgs e)
         {
             if (gameLogic.Life <= 0)
@@ -99,20 +120,13 @@ namespace WorldWordApp.View
             else
             {
                 gameLogic.ChangeQuestion();
+                true_answer.Visibility = Visibility.Hidden;
+                explain_button.Text = "see answer";
+                answer.Text = "";
             }
         }
 
-        public void SetDataContext(GameLogic gl)
-        {
-            DataContext = gl;
-            gameLogic = gl;
-        }
-
-        public void setMainWindow(MainWindow mainWin)
-        {
-            this.mainWindow = mainWin;
-        }
-
+        // timer that show the time. if time ends show the correct answer and move to the next question.
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (seconds >= 0)
@@ -129,6 +143,7 @@ namespace WorldWordApp.View
             }
         }
 
+        // timer for showing the appropriate resropnse and if move to the next question if needed.
         private void Status_Timer_Tick(object sender, EventArgs e)
         {
             statusTimer.Stop();
@@ -139,18 +154,22 @@ namespace WorldWordApp.View
             }
         }
 
+        // cheat for the admin that show and hide the answer in one click.
         private void seeAnswer_Click(object sender, RoutedEventArgs e)
         {
             if (true_answer.Visibility == Visibility.Hidden)
             {
                 true_answer.Visibility = Visibility.Visible;
+                explain_button.Text = "hide answer";
             }
             else
             {
                 true_answer.Visibility = Visibility.Hidden;
+                explain_button.Text = "see answer";
             }
         }
 
+        // move to the next round.
         public void NextRound()
         {
             round += 1;
@@ -160,9 +179,11 @@ namespace WorldWordApp.View
             }
             else
             {
+                roundNum.Text = round.ToString();
                 gameLogic.ChangeTurn();
                 change_question.IsEnabled = true;
                 true_answer.Visibility = Visibility.Hidden;
+                explain_button.Text = "see answer";
                 answer.Text = "";
                 gameLogic.AskQuestion();
                 seconds = 30;
@@ -171,9 +192,11 @@ namespace WorldWordApp.View
 
         }
 
+        // ending the game, find the winner and move to winner window.
         private void EndGame()
         {
             answer.Text = "";
+            // insert or update players and scores if needed.
             gameLogic.EndeGame();
             Winner winner = new Winner();
             List<Player> order = gameLogic.GetWinnerAndLoser();
@@ -184,6 +207,7 @@ namespace WorldWordApp.View
             this.Close();
         }
 
+        // show explenation of the ? button.
         private void button_MouseEnter(object sender, MouseEventArgs e)
         {
             explain_button.Visibility = Visibility.Visible;
@@ -192,6 +216,16 @@ namespace WorldWordApp.View
         private void button_MouseLeave(object sender, MouseEventArgs e)
         {
             explain_button.Visibility = Visibility.Hidden;
+        }
+        // show explenation of the ok button.
+        private void submit_MouseEnter(object sender, MouseEventArgs e)
+        {
+            explain_button2.Visibility = Visibility.Visible;
+        }
+
+        private void submit_MouseLeave(object sender, MouseEventArgs e)
+        {
+            explain_button2.Visibility = Visibility.Hidden;
         }
     }
 }

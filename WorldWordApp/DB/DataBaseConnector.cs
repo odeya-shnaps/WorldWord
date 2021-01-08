@@ -32,7 +32,7 @@ namespace WorldWordApp.DB
                 connection = new MySqlConnection(builder.ToString());
                 connection.Open();
                 // if the connection succeeded it will get here. else - Exception
-                MessageBox.Show("Database is connected", "Connection Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Database is connected", "Connection Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //connection.Close();
 
             }
@@ -75,7 +75,6 @@ namespace WorldWordApp.DB
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@username", userName);
             cmd.Parameters.AddWithValue("@score", score);
-
             RunQuery(cmd, type);
             return dt;
         }
@@ -84,7 +83,6 @@ namespace WorldWordApp.DB
         {
             CreateCommandForDB(query, false);
             cmd.Parameters.AddWithValue("@category", category);
-
             RunQuery(cmd, "SELECT");
             return dt;
         }

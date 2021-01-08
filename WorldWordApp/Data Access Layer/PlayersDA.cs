@@ -15,17 +15,19 @@ namespace WorldWordApp.Data_Access_Layer
     {
         private static DataTable dt;
         private DataBaseConnector dbConnector;
+        private string db_name;
 
 
         public PlayersDA(DataBaseConnector dbConnector)
         {
             this.dbConnector = dbConnector;
+            db_name = Properties.Settings.Default["NameOfDB"].ToString();
         }
 
 
         public List<Player> RetrieveUser(string userName1, string userName2)
         {
-            string query = "SELECT * FROM world_word_db.players WHERE name = (@username1) OR name = (@username2)";
+            string query = "SELECT * FROM " + db_name + ".players WHERE name = (@username1) OR name = (@username2)";
             dt = dbConnector.RunPlayersQuery(query, userName1, userName2, "SELECT");
             List<Player> aUser = new List<Player>();
 
@@ -43,24 +45,25 @@ namespace WorldWordApp.Data_Access_Layer
 
         public void InsertNewUser(string userName, int score)
         {
-            string query = "INSERT INTO `world_word_db`.`players` (`name`, `high_score`) VALUES ((@username), (@highscore))";
+            string query = "INSERT INTO `" + db_name + "`.`players` (`name`, `high_score`) VALUES ((@username), (@highscore))";
             dbConnector.RunPlayerQuery(query, userName, score, "INSERT");
         }
+
         public void DeleteUser(string userName)
         {
-            string query = "DELETE FROM `world_word_db`.`players` WHERE(`name` = (@username))";
+            string query = "DELETE FROM `" + db_name + "`.`players` WHERE(`name` = (@username))";
             dbConnector.RunPlayerQuery(query, userName, null, "DELETE");
-        }
+        } 
         public void UpdateHighScore(string userName, int newScore)
         {
-            string query = "UPDATE `world_word_db`.`players` SET `high_score` = (@highscore) WHERE(`name` = (@username))";
+            string query = "UPDATE `" + db_name + "`.`players` SET `high_score` = (@highscore) WHERE(`name` = (@username))";
             dbConnector.RunPlayerQuery(query, userName, newScore, "UPDATE");
         }
 
         // adding new score record to high_scores table
         public void AddToHighScoresList(string userName, int score)
         {
-            string query = "INSERT INTO `world_word_db`.`high_scores` (`player`, `score`) VALUES ((@username), (@score))";
+            string query = "INSERT INTO `" + db_name + "`.`high_scores` (`player`, `score`) VALUES ((@username), (@score))";
             dbConnector.RunHighScoresQuery(query, null, userName, score, "INSERT");
         }
 
@@ -68,7 +71,7 @@ namespace WorldWordApp.Data_Access_Layer
         {
             List<Score> scores = new List<Score>();
 
-            string query = "SELECT * FROM world_word_db.high_scores;";
+            string query = "SELECT * FROM " + db_name + ".high_scores;";
             dt = dbConnector.CreateCommandForDB(query, true);
 
             // there are scores records in db
@@ -84,10 +87,14 @@ namespace WorldWordApp.Data_Access_Layer
             }
             else
             {
-                MessageBox.Show("no previous games", "no data in db", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               // MessageBox.Show("no previous games", "no data in db", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             scores.Sort();
+            foreach (Score s in scores)
+            {
+                Console.WriteLine(s.Id + " " + s.Name + " " + s.HighScore + " *******************************************");
+            }
             scores.Reverse();
             return scores;
         }
@@ -95,7 +102,7 @@ namespace WorldWordApp.Data_Access_Layer
         // delete high_score from high_score list
         public void DeleteFromHighScoreList(int id)
         {
-            string query = "DELETE FROM world_word_db.high_scores WHERE id = (@id);";
+            string query = "DELETE FROM " + db_name + ".high_scores WHERE id = (@id);";
             dbConnector.RunHighScoresQuery(query, id, null, null, "DELETE");
         }
 
@@ -104,7 +111,7 @@ namespace WorldWordApp.Data_Access_Layer
         {
             List<Player> players = new List<Player>();
 
-            string query = "SELECT * FROM world_word_db.players;";
+            string query = "SELECT * FROM " + db_name + ".players;";
             dt = dbConnector.CreateCommandForDB(query, true);
 
             // there are players in db

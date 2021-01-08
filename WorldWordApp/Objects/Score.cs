@@ -12,7 +12,7 @@ namespace WorldWordApp.Objects
         {
             Name = name;
             HighScore = score;
-            Id = Id;
+            Id = id;
         }
         
         public String Name { get; set; }

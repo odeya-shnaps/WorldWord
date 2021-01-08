@@ -33,6 +33,7 @@ namespace WorldWordApp.View
             ShowMessage = true;
         }
 
+        // message box pop when closing, if just moving to another window don't pop.
         void Window_Closing(object sender, CancelEventArgs e)
         {
             if (ShowMessage)
@@ -52,7 +53,9 @@ namespace WorldWordApp.View
                 }
                 else
                 {
+                    // closing all the open windows and the connection to the db.
                     mainWindow.Close_Game();
+                    // closing the main window
                     mainWindow.ShowMessage = false;
                     mainWindow.Close();
                 }
@@ -92,7 +95,7 @@ namespace WorldWordApp.View
         private void toScores_Click(object sender, RoutedEventArgs e)
         {
             Records records = mainWindow.records;
-            records.SetAllScores(mainWindow.gameLogic.GetHighScors());
+            records.SetAllScores(mainWindow.gameLogic.GetHighScores());
             ShowMessage = false;
             records.Show();
             this.Close();

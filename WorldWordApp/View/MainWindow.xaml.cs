@@ -42,9 +42,10 @@ namespace WorldWordApp.View
             sign.setMainWindow(this);
             records.setMainWindow(this);
             players.setMainWindow(this);
+            // connect to the db
             gameLogic.Connect();
         }
-
+        // message box pop when closing, if just moving to another window don't pop.
         void Window_Closing(object sender, CancelEventArgs e)
         {
             if (ShowMessage)
@@ -59,7 +60,7 @@ namespace WorldWordApp.View
                     MessageBoxImage.Warning);
                 if (result == MessageBoxResult.No)
                 {
-                    // If user doesn't want to close, cancel closure.
+                    // If user doesn't want to close, cancel close.
                     e.Cancel = true;
                 }
                 else
@@ -70,6 +71,7 @@ namespace WorldWordApp.View
             }
         }
 
+        //close all the open windows and connection to db.
         public void Close_Game()
         {
             if (!sign.IsClosed)
@@ -91,24 +93,27 @@ namespace WorldWordApp.View
             gameLogic.CloseConnection();
         }
 
+        // move to sign up window to start playing.
         private void startPlaying_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
             sign.ResetDetailes();
             sign.ShowDialog();
         }
-
+        // move to players window
         private void seePlayers_Click(object sender, RoutedEventArgs e)
         {
+            // set the player list field in players window.
             players.SetAllPlayers(gameLogic.GetAllPlayers());
             players.SetPlayersList();
             this.Hide();
             players.ShowDialog();
         }
-
+        // move to records window.
         private void seeRecords_Click(object sender, RoutedEventArgs e)
         {
-            records.SetAllScores(gameLogic.GetHighScors());
+            // set the high scores list in records window.
+            records.SetAllScores(gameLogic.GetHighScores());
             this.Hide();
             records.ShowDialog();
         }
