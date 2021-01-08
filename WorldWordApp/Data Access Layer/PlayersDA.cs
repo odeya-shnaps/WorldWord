@@ -91,10 +91,6 @@ namespace WorldWordApp.Data_Access_Layer
 
             }
             scores.Sort();
-            foreach (Score s in scores)
-            {
-                Console.WriteLine(s.Id + " " + s.Name + " " + s.HighScore + " *******************************************");
-            }
             scores.Reverse();
             return scores;
         }
