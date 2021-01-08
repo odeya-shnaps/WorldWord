@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using WorldWordApp.Game_Logic;
 
 namespace WorldWordApp.View
@@ -25,11 +26,17 @@ namespace WorldWordApp.View
         private PlayGame game;
         public bool ShowMessage { get; set; }
         public bool IsClosed { get; private set; }
+        private DispatcherTimer timer;
+        private bool correctPass;
 
         public SignUp()
         {
             InitializeComponent();
             ShowMessage = true;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(3);
+            timer.Tick += Timer_Tick;
+            correctPass = true;
         }
 
         public void setMainWindow(MainWindow mainWin)
@@ -37,6 +44,7 @@ namespace WorldWordApp.View
             this.mainWindow = mainWin;
         }
 
+        // message box pop when closing, if just moving to another window don't pop.
         void Window_Closing(object sender, CancelEventArgs e)
         {
             IsClosed = true;
@@ -57,13 +65,16 @@ namespace WorldWordApp.View
                 }
                 else
                 {
+                    // closing all the open windows and the connection to the db.
                     mainWindow.Close_Game();
+                    // closing the main window
                     mainWindow.ShowMessage = false;
                     mainWindow.Close();
                 }
             }
         }
 
+        // reset for a new game
         public void ResetDetailes()
         {
             wait.Text = "";
@@ -73,29 +84,73 @@ namespace WorldWordApp.View
             demography.IsChecked = false;
             geography.IsChecked = false;
             people.IsChecked = false;
+            passwordBlock.Visibility = Visibility.Hidden;
+            password.Visibility = Visibility.Hidden;
+            incorrect.Text = "";
+            isAdmin.IsChecked = false;
 
         }
 
+        // back to main window
         private void button_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
             this.mainWindow.ShowDialog();
             
         }
-
+        // submit the details that the user enter.
+        // if they are valid starting the game, if not - message to inform the user.
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            wait.Text = "The Game will Start in a few Seconds";
-            GameLogic gl = mainWindow.gameLogic;
-            gl.StartGame(name1.Text, name2.Text, GetCategories());
-            game = new PlayGame();
-            game.SetDataContext(gl);
-            game.setMainWindow(mainWindow);
-            this.Hide();
-            this.game.Show();
-            game.StartGame();
+            bool correctPass;
+            // if want admit permission, check if the password correct
+            if (isAdmin.IsChecked == true)
+            {
+                if (password.Password.Equals("1111"))
+                {
+                    incorrect.Text = "Correct Password";
+                    correctPass = true;
+                }
+                else
+                {
+                    incorrect.Visibility = Visibility.Visible;
+                    incorrect.Text = "Incorrect Password";
+                    correctPass = false;
+                }
+            }
+            else
+            {
+                correctPass = true;
+            }
+            // continue to the game only if there is 2 names and if admin - password correct.
+            if (name1.Text != "" && name2.Text != "" && correctPass)
+            {
+                wait.Text = "The Game will Start in a few Seconds...";
+                GameLogic gl = mainWindow.gameLogic;
+                gl.StartGame(name1.Text, name2.Text, GetCategories());
+                game = new PlayGame();
+                game.SetDataContext(gl);
+                game.setMainWindow(mainWindow);
+                // set the admin permission
+                if (isAdmin.IsChecked == true)
+                {
+                    game.SetAdminPermission();
+                }
+                this.Hide();
+                this.game.Show();
+                game.NextRound();
+            }
+            else
+            {
+                if (name1.Text == "" || name2.Text == "")
+                {
+                    wait.Text = "Fill Names For Both Players";
+                    timer.Start();
+                }
+            }
         }
 
+        // create list with the categories that the user choose, if didn't choose any we put all of them.
         private string[] GetCategories()
         {
             List<string> categories = new List<string>();
@@ -123,6 +178,29 @@ namespace WorldWordApp.View
                 categories.Add("4");
             }
             return categories.ToArray();
+        }
+
+        // timer for the message to the user.
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            wait.Text = "";
+            timer.Stop();
+        }
+
+        // show password text block and text box to enter the password
+        private void isAdmin_Checked(object sender, RoutedEventArgs e)
+        {
+            passwordBlock.Visibility = Visibility.Visible;
+            password.Visibility = Visibility.Visible;
+        }
+
+        // hide password text block and text box
+        private void isAdmin_Unchecked(object sender, RoutedEventArgs e)
+        {
+            password.Password = "";
+            passwordBlock.Visibility = Visibility.Hidden;
+            password.Visibility = Visibility.Hidden;
+            incorrect.Text = "";
         }
     }
 }

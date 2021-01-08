@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="../images/world.jpg" Opacity="0.7"/>
+            <ImageBrush ImageSource="/WorldWordApp;component/images/world.jpg" Opacity="0.7"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
@@ -19,7 +19,7 @@
         <Button x:Name="seePlayers" Content="Players" Height="44" Margin="186,0,0,45" Width="113" FontSize="16" FontWeight="Bold" Click="seePlayers_Click" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <Button x:Name="seeRecords" Content="High Scores" Height="44" Margin="0,0,142.6,45" Width="113" FontSize="16" FontWeight="Bold" Click="seeRecords_Click" Grid.Column="1" RenderTransformOrigin="3.053,1.897" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
         <Button x:Name="startPlaying" Content="Start Playing" Margin="350,0,62.4,45" FontSize="16" FontWeight="Bold" Click="startPlaying_Click" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="44" Width="134"/>
-        <Label x:Name="label" Content="Around The World" HorizontalAlignment="Center" Height="63" Margin="243,29,225.6,0" VerticalAlignment="Top" Width="325" RenderTransformOrigin="0.5,0.5" Grid.Column="1" FontWeight="Bold" FontSize="36" Background="{x:Null}" Grid.ColumnSpan="2">
+        <Label x:Name="label" Content="World Word App" HorizontalAlignment="Center" Height="63" Margin="243,29,225.6,0" VerticalAlignment="Top" Width="325" RenderTransformOrigin="0.5,0.5" Grid.Column="1" FontWeight="Bold" FontSize="36" Background="{x:Null}" Grid.ColumnSpan="2">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

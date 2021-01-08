@@ -150,6 +150,10 @@
     <Resource Include="images\letters.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\play now.jfif" />
+    <Content Include="images\play now2.jfif" />
+    <Content Include="images\play.jfif" />
+    <Resource Include="images\play2.png" />
     <Resource Include="images\scores.jpg" />
     <Resource Include="images\winBackground.jpg" />
     <Content Include="images\blue-world.jfif" />

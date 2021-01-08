@@ -40,6 +40,7 @@ namespace WorldWordApp.View
             this.mainWindow = mainWin;
         }
 
+        // message box pop when closing, if just moving to another window don't pop.
         void Window_Closing(object sender, CancelEventArgs e)
         {
             IsClosed = true;
@@ -60,7 +61,9 @@ namespace WorldWordApp.View
                 }
                 else
                 {
+                    // closing all the open windows and the connection to the db.
                     mainWindow.Close_Game();
+                    // closing the main window
                     mainWindow.ShowMessage = false;
                     mainWindow.Close();
                 }

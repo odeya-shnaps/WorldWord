@@ -21,6 +21,7 @@ namespace WorldWordApp.Data_Access_Layer
         private DataTable dt;
         private List<Question> questionsList;
         private List<Query> queriesList;
+        private string db_name;
 
 
         private Thread updateThread;
@@ -29,6 +30,7 @@ namespace WorldWordApp.Data_Access_Layer
         public QueryDA(DataBaseConnector dbConnector)
         {
             this.dbConnector = dbConnector;
+            db_name = Properties.Settings.Default["NameOfDB"].ToString();
         }
 
         public List<Question> QuestionsGeneration(string[] categories)
@@ -71,7 +73,7 @@ namespace WorldWordApp.Data_Access_Layer
             for (int i = 0; i <= categories.Length - 1; i++)
             {
                 int category = Int32.Parse(categories[i]);
-                string query = "SELECT * FROM world_word_db.queries where category=(@category) ORDER BY RAND() LIMIT " + avgNumOfQuestions.ToString();
+                string query = "SELECT * FROM " + db_name + ".queries where category=(@category) ORDER BY RAND() LIMIT " + avgNumOfQuestions.ToString();
                 // getting the queries in DB from the i category
                 dt = dbConnector.RetrieveQueryByCategory(query, category);
 

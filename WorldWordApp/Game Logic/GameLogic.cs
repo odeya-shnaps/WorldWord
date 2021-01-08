@@ -29,6 +29,8 @@ namespace WorldWordApp.Game_Logic
         private int numLetters;
         private string turn_of;
         private bool tie;
+        private string answerWithoutDelimiters;
+        private char[] delimiterChars = { ' ', ',', ':', '\n', '\t','-', '\''};
 
         public GameLogic()
         {
@@ -37,6 +39,7 @@ namespace WorldWordApp.Game_Logic
             this.playerDA = new PlayersDA(dbConnector);
         }
 
+        // properties
         public string Name1
         {
             get { return player1.PlayerName; }
@@ -155,30 +158,38 @@ namespace WorldWordApp.Game_Logic
             }
         }
 
+        // connect to the database according to the details in app.config
         public void Connect()
         {
-            // from app config
-            dbConnector.EstablishConnection("127.0.0.1", "root", "987654", "world_word_db");
+            string ip = Properties.Settings.Default["Ip"].ToString();
+            string userName = Properties.Settings.Default["UserName"].ToString();
+            string password = Properties.Settings.Default["Password"].ToString();
+            string dbName = Properties.Settings.Default["NameOfDB"].ToString();
+            dbConnector.EstablishConnection(ip, userName, password, dbName);
         }
 
+        // disconnect from the db
         public void CloseConnection()
         {
             dbConnector.CloseConnectionToDB();
         }
 
-        // turn if odd 1 else 2
+        // get 2 names of the players and create 2 players.
         private void AddPlayers(string name1, string name2) 
         {
             player1 = new Player(name1);
             player2 = new Player(name2);
         }
 
+        // get the question to the game from the db.
         private void GetQuestions(string[] categories)
         {
            questionsList = queryDA.QuestionsGeneration(categories);
-           //questionsList = new List<Question>() {new Question("what is your name?", "odeya"), new Question("how are you today?", "fine"), new Question("how old are you?","23"), new Question("tired?","yes"), new Question("what is your last name?","shnaps"),new Question("how long?","forever"), new Question("time?","15:30")};
+           //questionsList = new List<Question>() {new Question("what is your name?", "Odeya"), new Question("how are you today?", "fine"), new Question("how old are you?","23"), new Question("tired?","yes"), new Question("what is your last name?","shnaps"),new Question("how long?","forever"), new Question("time?","15:30")};
         }
 
+        // At the end of each game we insert the new player to the players table
+        // and update the score of old players if the current score they achieve in the game is higher.
         public void UpdateOrInsertPlayers()
         {
             List<Player> dbPlayers = playerDA.RetrieveUser(player1.PlayerName, player2.PlayerName);
@@ -251,24 +262,74 @@ namespace WorldWordApp.Game_Logic
                         playerDA.UpdateHighScore(player2.PlayerName, player2.CurrentScore);
                     }
                 }
-            }
-            playerDA.AddToHighScoresList(player1.PlayerName, player1.CurrentScore);
-
-            playerDA.AddToHighScoresList(player2.PlayerName, player2.CurrentScore);
-
+            } 
         }
 
-        public List<Score> GetHighScors()
+        // At the end of each game we enter the new scores to high score table
+        // if they are part of the 10th highest score that were achieved. 
+        public void UpdateHighScores()
+        {
+            List<Score> highScores = playerDA.GetHighScoresList();
+            if (highScores.Count <= 8)
+            {
+                playerDA.AddToHighScoresList(player1.PlayerName, player1.CurrentScore);
+                playerDA.AddToHighScoresList(player2.PlayerName, player2.CurrentScore);
+            }
+            else
+            {
+                Player winner, loser;
+                int lowestIndx;
+                if (player1.CurrentScore >= player2.CurrentScore)
+                {
+                    winner = player1;
+                    loser = player2;
+                }
+                else
+                {
+                    winner = player2;
+                    loser = player1;
+                }
+                if (highScores.Count == 9)
+                {
+                    lowestIndx = 8;
+                    playerDA.AddToHighScoresList(winner.PlayerName, winner.CurrentScore);
+                    if (highScores[lowestIndx].HighScore <= loser.CurrentScore)
+                    {
+                        playerDA.DeleteFromHighScoreList(highScores[lowestIndx].Id);
+                        playerDA.AddToHighScoresList(loser.PlayerName, loser.CurrentScore);
+                    }
+                }
+                else
+                {
+                    lowestIndx = 9;
+                    if (highScores[lowestIndx].HighScore <= winner.CurrentScore)
+                    {
+                        playerDA.DeleteFromHighScoreList(highScores[lowestIndx].Id);
+                        playerDA.AddToHighScoresList(winner.PlayerName, winner.CurrentScore);
+                        lowestIndx = 8;
+                        if (highScores[lowestIndx].HighScore <= loser.CurrentScore)
+                        {
+                            playerDA.DeleteFromHighScoreList(highScores[lowestIndx].Id);
+                            playerDA.AddToHighScoresList(loser.PlayerName, loser.CurrentScore);
+                        }
+                    }
+                }
+            }
+        }
+
+        // get all the scores in high score table in descending order.
+        public List<Score> GetHighScores()
         {
             return playerDA.GetHighScoresList();
-
         }
 
+        // get all the players fron players table
         public List<Player> GetAllPlayers()
         {
             return playerDA.GetPlayersList();
         }
 
+        // preparations for the game.
         public void StartGame(string name1, string name2, string[] categories)
         {
             AddPlayers(name1, name2);
@@ -281,10 +342,16 @@ namespace WorldWordApp.Game_Logic
             turn_of = player1.PlayerName;
         }
 
+        // checking if the player answer is correct
         public bool IsCorrectAnswer(string playerAnswer, int seconds)
         {
-            // check for ' '
-            if (playerAnswer.Equals(CurrentAnswer))
+            string splittedPlayerAns = "";
+            string[] words = playerAnswer.Split(delimiterChars);
+            foreach (string word in words)
+            {
+                splittedPlayerAns += word;
+            }
+            if (splittedPlayerAns.ToUpper().Equals(answerWithoutDelimiters.ToUpper()))
             {
                 Status = "Good job!";
                 if (turn_of.Equals(player1.PlayerName))
@@ -301,22 +368,33 @@ namespace WorldWordApp.Game_Logic
             return false;
         }
 
+        // ask the next question
         public void AskQuestion()
         {
+            answerWithoutDelimiters = "";
             Status = "";
             NumQuestion += 1;
             Question q = questionsList[NumQuestion - 1];
-            CurrentQuestion = q.QuestionString;
+            CurrentQuestion = q.QuestionString + "?";
             CurrentAnswer = q.AnswerString;
+            string ans = CurrentAnswer;
+            // remove the unimportant punctuation and spaces from answer.
+            string[] words = ans.Split(delimiterChars);
+            foreach (string word in words)
+            {
+                answerWithoutDelimiters += word;
+            }
             NumLetters = answer.Length;
         }
 
+        // change to the next question, it's one of the life saver the player can use.
         public void ChangeQuestion()
         {
             Life = Life - 1;
             AskQuestion();
         }
 
+        //chang the turns of the players.
         public void ChangeTurn()
         {
             if (turn_of.Equals(player1.PlayerName))
@@ -330,11 +408,15 @@ namespace WorldWordApp.Game_Logic
             NotifyProperyChanged("Life");
         }
 
+        // At the end of each game we update high scores if needed and insert new players 
+        // or update old players score if needed in the db.
         public void EndeGame()
         {
-            //update players and scores
+            UpdateOrInsertPlayers();
+            UpdateHighScores();
         }
 
+        // get the winner and loser or tie.
         public List<Player> GetWinnerAndLoser()
         {
             tie = false;
@@ -362,6 +444,7 @@ namespace WorldWordApp.Game_Logic
             return tie;
         }
 
+        // we bind the properties with WPF controls in the view, so when one of the properties change we inform the view.
         public void NotifyProperyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
@@ -369,23 +452,5 @@ namespace WorldWordApp.Game_Logic
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-                /*
-        public void AnswerProsses(string playerAnswer)
-        {
-            if (IsCorrectAnswer(playerAnswer))
-            {
-                Status = "Good job!";
-                Score1 = Score1 + 500;
-                // next question
-            }
-            else
-            {
-                // feedback on answer, try again...
-                //if time up next question else try again
-                Status = "Try Again...";
-            }
-        }*/
-
     }
 }
