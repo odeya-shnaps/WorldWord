@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 
 namespace WorldWordApp.Objects
@@ -29,7 +24,7 @@ namespace WorldWordApp.Objects
         public int Category { get; set; }
 
         public int Type { get; set; }
-
+        // the column the answer exists in
         public int AnswerColumn { get; set; }
 
         public int CompareTo(Query compareQuery)
@@ -41,7 +36,7 @@ namespace WorldWordApp.Objects
                 return this.Id.CompareTo(compareQuery.Id);
 
         }
-
+        // check if two Query objects are equal
         public bool Equals(Query other)
         {
             if (other == null) return false;
