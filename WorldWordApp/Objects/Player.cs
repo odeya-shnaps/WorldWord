@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace WorldWordApp.Objects
 {
     public class Player
     {
 
-        public Player(string name)
+        public Player(string name, Brush color)
         {
             PlayerName = name;
             CurrentScore = 0;
             Life = 2;
+            PlayerColor = color;
         }
 
         public Player(string name, int highScore)
@@ -32,5 +30,7 @@ namespace WorldWordApp.Objects
         public int CurrentScore { get; set; }
 
         public int Life { get; set; }
+
+        public Brush PlayerColor { get; set; }
     }
 }

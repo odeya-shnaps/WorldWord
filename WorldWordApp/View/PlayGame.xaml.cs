@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using WorldWordApp.Game_Logic;
 using WorldWordApp.Objects;
@@ -123,6 +113,7 @@ namespace WorldWordApp.View
                 true_answer.Visibility = Visibility.Hidden;
                 explain_button.Text = "see answer";
                 answer.Text = "";
+                //missing_answer.Text = "";
             }
         }
 
@@ -185,6 +176,7 @@ namespace WorldWordApp.View
                 true_answer.Visibility = Visibility.Hidden;
                 explain_button.Text = "see answer";
                 answer.Text = "";
+                //missing_answer.Text = "";
                 gameLogic.AskQuestion();
                 seconds = 30;
                 timer.Start();
@@ -196,6 +188,7 @@ namespace WorldWordApp.View
         private void EndGame()
         {
             answer.Text = "";
+            missing_answer.Text = "";
             // insert or update players and scores if needed.
             gameLogic.EndeGame();
             Winner winner = new Winner();

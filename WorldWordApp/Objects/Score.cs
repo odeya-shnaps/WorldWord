@@ -29,7 +29,7 @@ namespace WorldWordApp.Objects
                 return this.HighScore.CompareTo(compareScore.HighScore);
 
         }
-
+        // check if two Score objects are equal
         public bool Equals(Score other)
         {
             if (other == null) return false;
