@@ -19,7 +19,7 @@
         <Button x:Name="seePlayers" Content="Players" Height="44" Margin="186,0,0,45" Width="113" FontSize="16" FontWeight="Bold" Click="seePlayers_Click" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <Button x:Name="seeRecords" Content="High Scores" Height="44" Margin="0,0,142.6,45" Width="113" FontSize="16" FontWeight="Bold" Click="seeRecords_Click" Grid.Column="1" RenderTransformOrigin="3.053,1.897" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
         <Button x:Name="startPlaying" Content="Start Playing" Margin="350,0,62.4,45" FontSize="16" FontWeight="Bold" Click="startPlaying_Click" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="44" Width="134"/>
-        <Label x:Name="label" Content="World Word App" HorizontalAlignment="Center" Height="63" Margin="243,29,225.6,0" VerticalAlignment="Top" Width="325" RenderTransformOrigin="0.5,0.5" Grid.Column="1" FontWeight="Bold" FontSize="36" Background="{x:Null}" Grid.ColumnSpan="2">
+        <Label x:Name="label" Content="World Word App" HorizontalAlignment="Center" Height="63" Margin="231,45,215.6,0" VerticalAlignment="Top" Width="347" RenderTransformOrigin="0.5,0.5" Grid.Column="1" FontWeight="Bold" FontSize="40" Background="{x:Null}" Grid.ColumnSpan="2">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -29,6 +29,8 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+        <TextBlock x:Name="failedConnect" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="77" Margin="237,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="349" Foreground="#FFF01212" FontWeight="Bold" FontSize="24" TextAlignment="Center" Text=""/>
+        <Button x:Name="reconnect" Grid.ColumnSpan="2" Content="Reconnect" HorizontalAlignment="Left" Height="44" Margin="350,222,0,0" VerticalAlignment="Top" Width="134" Click="reconnect_Click" FontWeight="Bold" Visibility="Hidden" IsEnabled="True" FontSize="16"/>
 
     </Grid>
 </Window>

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using WorldWordApp.DB;
 using WorldWordApp.Game_Logic;
 
@@ -29,6 +30,8 @@ namespace WorldWordApp.View
         private SignUp sign;
         public bool ShowMessage { get; set; }
         public GameLogic gameLogic;
+        private bool isConnect;
+        private DispatcherTimer timer;
 
         public MainWindow()
         {
@@ -42,9 +45,22 @@ namespace WorldWordApp.View
             sign.setMainWindow(this);
             records.setMainWindow(this);
             players.setMainWindow(this);
-            // connect to the db
-            gameLogic.Connect();
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1.5);
+            timer.Tick += Timer_Tick;
+
+            // connect to the db, if can't connect show message to user and ask him to reconnect.
+            isConnect = gameLogic.Connect();
+            if (!isConnect)
+            {
+                seePlayers.IsEnabled = false;
+                seeRecords.IsEnabled = false;
+                startPlaying.IsEnabled = false;
+                failedConnect.Text = "Failed Connecting To DB,\n please try again...";
+                reconnect.Visibility = Visibility.Visible;
+            }
         }
+
         // message box pop when closing, if just moving to another window don't pop.
         void Window_Closing(object sender, CancelEventArgs e)
         {
@@ -116,6 +132,34 @@ namespace WorldWordApp.View
             records.SetAllScores(gameLogic.GetHighScores());
             this.Hide();
             records.ShowDialog();
+        }
+
+        // tring to reconnect to the db, if can't show message to user and ask him to reconnect.
+        private void reconnect_Click(object sender, RoutedEventArgs e)
+        {
+            isConnect = gameLogic.Connect();
+            failedConnect.Text = "Trying To Connect...";
+            reconnect.IsEnabled = false;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            if (!isConnect)
+            {
+                reconnect.IsEnabled = true;
+                failedConnect.Text = "Failed Connecting To DB,\n please try again...";
+                reconnect.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                seePlayers.IsEnabled = true;
+                seeRecords.IsEnabled = true;
+                startPlaying.IsEnabled = true;
+                failedConnect.Text = "";
+                reconnect.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

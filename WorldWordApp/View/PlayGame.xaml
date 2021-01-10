@@ -31,9 +31,9 @@
         <TextBlock HorizontalAlignment="Left" Margin="19,133,0,0" TextWrapping="Wrap" Text="Time left:" VerticalAlignment="Top" Foreground="#FF0E0404" FontSize="20" Width="92" FontWeight="Bold"/>
         <TextBlock x:Name="time" TextAlignment="Center" HorizontalAlignment="Left" Margin="34,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="49" Width="56" FontSize="36" Foreground="Red" RenderTransformOrigin="1.187,2.676" Text="30"/>
         <TextBlock x:Name="missing_answer" Grid.Column="1" Grid.Row="1" Margin="40.4,10,22,0" TextWrapping="Wrap" 
-                   TextAlignment="Center" Text="{Binding MissingAnswer}"  
+                   TextAlignment="Center"  
                    Height="70" Width="504" HorizontalAlignment="Center" VerticalAlignment="Top"                   
-                   FontSize="23" FontWeight="Bold" Foreground="Chocolate" Grid.ColumnSpan="2"/>
+                   FontSize="23" FontWeight="Bold" Foreground="Chocolate" Grid.ColumnSpan="2" Text="{Binding MissingAnswer}"/>
 
         <TextBox x:Name="answer" Grid.Column="1" HorizontalAlignment="Left" Height="32" Margin="144.4,87,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="264" FontSize="20" FontWeight="Bold"/>
         <TextBlock x:Name="letters" Grid.Column="1" HorizontalAlignment="Left" Margin="80.4,99,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="47" FontSize="15"><Run FontSize="16" Text="letters"/></TextBlock>
@@ -51,10 +51,10 @@
         <TextBlock x:Name="true_answer" Grid.Column="1" HorizontalAlignment="Left" Height="41" Margin="10.4,129,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="398" Text="{Binding CurrentAnswer}" FontSize="20" Visibility="Visible" TextAlignment="Right"/>
         <Button x:Name="cheats" Content="?" Grid.Column="1" HorizontalAlignment="Left" Height="32" Margin="428.4,129,0,0" Grid.Row="1" VerticalAlignment="Top" Width="46" Click="seeAnswer_Click" MouseEnter="button_MouseEnter" MouseLeave="button_MouseLeave" RenderTransformOrigin="0.742,0.349" Background="#FFDDDDDD" BorderBrush="#FF080606" FontWeight="Bold" FontSize="22" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="num_letters" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="39.4,99,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" TextAlignment="Right" FontSize="16" Text="{Binding NumLetters}"/>
-        <TextBlock x:Name="explain_button" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="25.052,129,0,0" Grid.Row="1" TextWrapping="Wrap" Text="see answer" VerticalAlignment="Top" Width="85" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TextAlignment="Center" Visibility="Hidden"/>
+        <TextBlock x:Name="explain_button" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="25.052,129,0,0" Grid.Row="1" TextWrapping="Wrap" Text="see answer" VerticalAlignment="Top" Width="85" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TextAlignment="Center" Visibility="Visible"/>
         <Ellipse Fill="DarkSeaGreen" HorizontalAlignment="Left" Height="55" Margin="34,57,0,0" Stroke="Black" VerticalAlignment="Top" Width="56"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="30" Margin="23,25,0,0" TextWrapping="Wrap" Text="Round" VerticalAlignment="Top" Width="84" Background="{x:Null}" TextAlignment="Center" FontWeight="Bold" FontSize="20" BorderBrush="{x:Null}"/>
-        <TextBlock x:Name="explain_button2" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="27.052,87,0,0" Grid.Row="1" TextWrapping="Wrap" Text="submit answer" VerticalAlignment="Top" Width="85" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TextAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="explain_button2" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="27.052,87,0,0" Grid.Row="1" TextWrapping="Wrap" Text="submit answer" VerticalAlignment="Top" Width="85" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TextAlignment="Center" Visibility="Visible" Grid.ColumnSpan="2"/>
         <TextBox x:Name="roundNum" HorizontalAlignment="Left" Height="44" Margin="38,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47" Background="{x:Null}" BorderBrush="{x:Null}" TextAlignment="Center" FontWeight="Bold" FontSize="24"/>
     </Grid>
 </Window>

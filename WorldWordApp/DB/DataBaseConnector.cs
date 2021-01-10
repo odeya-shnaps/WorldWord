@@ -35,7 +35,8 @@ namespace WorldWordApp.DB
             }
             catch (Exception)
             {
-                MessageBox.Show("Application could not connect to DB ", "Connection Failed ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Application could not connect to DB ", "Connection Failed ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception();
             }
         }
         // closing the DB connection
