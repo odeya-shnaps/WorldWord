@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
-using System.Windows.Threading;
+using System.Windows.Media;
 using WorldWordApp.Data_Access_Layer;
 using WorldWordApp.DB;
 using WorldWordApp.Objects;
@@ -24,6 +19,8 @@ namespace WorldWordApp.Game_Logic
         private Player player2;
         private string question;
         private string answer;
+        private string missingAnswer;
+
         private string status;
         private int numQue;
         private int numLetters;
@@ -31,6 +28,8 @@ namespace WorldWordApp.Game_Logic
         private bool tie;
         private string answerWithoutDelimiters;
         private char[] delimiterChars = { ' ', ',', ':', '\n', '\t','-', '\''};
+        Brush playerColor;
+
 
         public GameLogic()
         {
@@ -75,6 +74,15 @@ namespace WorldWordApp.Game_Logic
             {
                 answer = value;
                 NotifyProperyChanged("CurrentAnswer");
+            }
+        }
+        public string MissingAnswer
+        {
+            get { return missingAnswer; }
+            set
+            {
+                missingAnswer = value;
+                NotifyProperyChanged("MissingAnswer");
             }
         }
         public int NumLetters
@@ -158,6 +166,19 @@ namespace WorldWordApp.Game_Logic
             }
         }
 
+        public Brush PlayerColor
+        {
+            get 
+            {
+                return playerColor;
+            }
+            set
+            {
+                playerColor = value;
+                NotifyProperyChanged("PlayerColor");
+            }
+        }
+
         // connect to the database according to the details in app.config
         public void Connect()
         {
@@ -177,8 +198,8 @@ namespace WorldWordApp.Game_Logic
         // get 2 names of the players and create 2 players.
         private void AddPlayers(string name1, string name2) 
         {
-            player1 = new Player(name1);
-            player2 = new Player(name2);
+            player1 = new Player(name1, new SolidColorBrush(Colors.Orange));
+            player2 = new Player(name2, new SolidColorBrush(Colors.LimeGreen));
         }
 
         // get the question to the game from the db.
@@ -295,7 +316,7 @@ namespace WorldWordApp.Game_Logic
                     playerDA.AddToHighScoresList(winner.PlayerName, winner.CurrentScore);
                     if (highScores[lowestIndx].HighScore <= loser.CurrentScore)
                     {
-                        playerDA.DeleteFromHighScoreList(highScores[lowestIndx].Id);
+                        playerDA.DeleteFromHighScoreTable(highScores[lowestIndx].Id);
                         playerDA.AddToHighScoresList(loser.PlayerName, loser.CurrentScore);
                     }
                 }
@@ -304,12 +325,12 @@ namespace WorldWordApp.Game_Logic
                     lowestIndx = 9;
                     if (highScores[lowestIndx].HighScore <= winner.CurrentScore)
                     {
-                        playerDA.DeleteFromHighScoreList(highScores[lowestIndx].Id);
+                        playerDA.DeleteFromHighScoreTable(highScores[lowestIndx].Id);
                         playerDA.AddToHighScoresList(winner.PlayerName, winner.CurrentScore);
                         lowestIndx = 8;
                         if (highScores[lowestIndx].HighScore <= loser.CurrentScore)
                         {
-                            playerDA.DeleteFromHighScoreList(highScores[lowestIndx].Id);
+                            playerDA.DeleteFromHighScoreTable(highScores[lowestIndx].Id);
                             playerDA.AddToHighScoresList(loser.PlayerName, loser.CurrentScore);
                         }
                     }
@@ -340,6 +361,7 @@ namespace WorldWordApp.Game_Logic
             status = "";
             question = "";
             turn_of = player1.PlayerName;
+            PlayerColor = player1.PlayerColor;
         }
 
         // checking if the player answer is correct
@@ -385,6 +407,60 @@ namespace WorldWordApp.Game_Logic
                 answerWithoutDelimiters += word;
             }
             NumLetters = answer.Length;
+            CreateMissingAnswer(CurrentAnswer);
+        }
+
+        // creating missing answer to show to the player
+        public void CreateMissingAnswer(string answer)
+        {
+            // calculating the num of letters to reveal to player
+            int numOfLettersToReveal = Convert.ToInt32(Math.Floor(0.5 * NumLetters));
+
+            List<int> lettersIndexesList = new List<int>();
+            int index;
+            var rand = new Random();
+            // selection random chars to remain hidden
+            for (int i = 1; i <= (NumLetters - numOfLettersToReveal); i++)
+            {
+                do
+                {
+                    index = rand.Next(NumLetters);
+                } while (lettersIndexesList.Contains(index) || specialChars(answer[index]));  // checking the index does not exist already in the list and it is not a apecial char
+                lettersIndexesList.Add(index);
+            }
+            // sorting the list indexes
+            lettersIndexesList.Sort();
+            // building the missing answer
+            string missingAnswer = "";
+            for(int i = 0; i < NumLetters; i++)
+            {
+                // the index should be revealed
+                if (lettersIndexesList.Contains(i))
+                {
+                    missingAnswer += "_ ";
+                }
+                else
+                {
+                    // check if is is a space - emphasize it
+                    var letter = answer[i].ToString();
+                    if (String.Equals(letter, " "))
+                    {
+                        letter = "  ";
+                    }
+                    missingAnswer += letter;
+                }
+            }
+            MissingAnswer = missingAnswer;
+        }
+
+        // special chars - chars that will not be hidden
+        public bool specialChars(char ch)
+        {
+            if (ch == '(' || ch == ')' || ch == ' ' || ch == ':' || ch == ',' || ch == '.')
+            {
+                return true;
+            }
+            return false;
         }
 
         // change to the next question, it's one of the life saver the player can use.
@@ -400,10 +476,12 @@ namespace WorldWordApp.Game_Logic
             if (turn_of.Equals(player1.PlayerName))
             {
                 Turn = player2.PlayerName;
+                PlayerColor = player2.PlayerColor;
             }
             else
             {
                 Turn = player1.PlayerName;
+                PlayerColor = player1.PlayerColor;
             }
             NotifyProperyChanged("Life");
         }

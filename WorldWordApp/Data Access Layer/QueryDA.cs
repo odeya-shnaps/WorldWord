@@ -23,8 +23,7 @@ namespace WorldWordApp.Data_Access_Layer
         private List<Query> queriesList;
         private string db_name;
 
-
-        private Thread updateThread;
+        //private Thread updateThread;
         private int avgNumOfQuestions;
 
         public QueryDA(DataBaseConnector dbConnector)
@@ -168,7 +167,7 @@ namespace WorldWordApp.Data_Access_Layer
             }
         }
 
-
+        // building a question
         public Question BuildQuestionObject(DataRow dr, Query q)
         {
             int colOfInformation = 2 - q.AnswerColumn;
@@ -177,6 +176,7 @@ namespace WorldWordApp.Data_Access_Layer
             string finalQuestion = q.QuestionString + " " + partOfQuestion;
             // if the query returns float - cutting the number to be shorter
             var answer = dr.ItemArray[q.AnswerColumn - 1];
+            // decimal number - want to be shown only one digit after dot
             if (q.Type == 3)
             {
 

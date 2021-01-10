@@ -32,21 +32,19 @@ namespace WorldWordApp.DB
                 connection = new MySqlConnection(builder.ToString());
                 connection.Open();
                 // if the connection succeeded it will get here. else - Exception
-                //MessageBox.Show("Database is connected", "Connection Succeeded", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //connection.Close();
-
             }
             catch (Exception)
             {
                 MessageBox.Show("Application could not connect to DB ", "Connection Failed ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        // closing the DB connection
         public void CloseConnectionToDB()
         {
             connection.Close();
         }
 
+        // sending a query related to player schema - one player
         public DataTable RunPlayerQuery(string query, string userName, int? highScore, string type)
         {
             CreateCommandForDB(query, false);
@@ -58,6 +56,7 @@ namespace WorldWordApp.DB
             return dt;
         }
 
+        // sending a query related to player schema - two users
         public DataTable RunPlayersQuery(string query, string userName1, string userName2, string type)
         {
             CreateCommandForDB(query, false);
@@ -68,7 +67,7 @@ namespace WorldWordApp.DB
             RunQuery(cmd, type);
             return dt;
         }
-
+        // sending a query related to high_scores schema
         public DataTable RunHighScoresQuery(string query, int? id, string userName, int? score, string type)
         {
             CreateCommandForDB(query, false);
@@ -78,7 +77,7 @@ namespace WorldWordApp.DB
             RunQuery(cmd, type);
             return dt;
         }
-
+        // getting all queries from 'queries schema' in DB belongs to 'category'
         public DataTable RetrieveQueryByCategory(string query, int category)
         {
             CreateCommandForDB(query, false);
@@ -86,13 +85,12 @@ namespace WorldWordApp.DB
             RunQuery(cmd, "SELECT");
             return dt;
         }
-
+        // creating the command will be sent to DB
         public DataTable CreateCommandForDB(string query, bool run)
         {
             cmd = connection.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = query;
-            MySqlDataReader result = null;
             // run without change anything
             if (run)
             {
@@ -101,7 +99,7 @@ namespace WorldWordApp.DB
 
             return dt;
         }
-
+        // sending the query to DB
         private void RunQuery(MySqlCommand cmd, string type)
         {
             dt = null;
@@ -109,20 +107,23 @@ namespace WorldWordApp.DB
             {
                 if (connection != null)
                 {
-                    //connection.Open();
                     switch (type)
                     {
+                        // query we want to use the data returned
                         case "SELECT":
+                            // openning a reader
                             MySqlDataReader result = cmd.ExecuteReader();
                             dt = new DataTable();
+                            // loading the data returned to dataTable
                             dt.Load(result);
+                            // closing the reader
                             result.Close();
                             break;
+                        // query we do not want to use the data returned
                         default: // INSERT, UPDATE, DELETE
                             cmd.ExecuteNonQuery();
                             break;
                     }
-                    //connection.Close();
                 }
             }
             catch (Exception ex)
