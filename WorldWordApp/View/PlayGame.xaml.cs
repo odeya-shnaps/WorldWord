@@ -22,7 +22,7 @@ namespace WorldWordApp.View
         private GameLogic gameLogic;
         private int round;
         private bool endRound;
-        private const int numRounds = 5;
+        private const int numRounds = 21;
 
         public PlayGame()
         {
@@ -53,6 +53,7 @@ namespace WorldWordApp.View
         {
             cheats.IsEnabled = true;
         }
+
         // message box pop when closing, if just moving to another window don't pop.
         void Window_Closing(object sender, CancelEventArgs e)
         {
@@ -113,7 +114,6 @@ namespace WorldWordApp.View
                 true_answer.Visibility = Visibility.Hidden;
                 explain_button.Text = "see answer";
                 answer.Text = "";
-                //missing_answer.Text = "";
             }
         }
 
@@ -176,7 +176,6 @@ namespace WorldWordApp.View
                 true_answer.Visibility = Visibility.Hidden;
                 explain_button.Text = "see answer";
                 answer.Text = "";
-                //missing_answer.Text = "";
                 gameLogic.AskQuestion();
                 seconds = 30;
                 timer.Start();

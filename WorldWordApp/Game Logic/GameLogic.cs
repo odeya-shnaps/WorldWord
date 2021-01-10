@@ -29,6 +29,7 @@ namespace WorldWordApp.Game_Logic
         private string answerWithoutDelimiters;
         private char[] delimiterChars = { ' ', ',', ':', '\n', '\t','-', '\''};
         Brush playerColor;
+        private Random random;
 
 
         public GameLogic()
@@ -36,6 +37,7 @@ namespace WorldWordApp.Game_Logic
             this.dbConnector = new DataBaseConnector();
             this.queryDA = new QueryDA(dbConnector);
             this.playerDA = new PlayersDA(dbConnector);
+            random = new Random();
         }
 
         // properties
@@ -180,13 +182,21 @@ namespace WorldWordApp.Game_Logic
         }
 
         // connect to the database according to the details in app.config
-        public void Connect()
+        public bool Connect()
         {
             string ip = Properties.Settings.Default["Ip"].ToString();
             string userName = Properties.Settings.Default["UserName"].ToString();
             string password = Properties.Settings.Default["Password"].ToString();
             string dbName = Properties.Settings.Default["NameOfDB"].ToString();
-            dbConnector.EstablishConnection(ip, userName, password, dbName);
+            try
+            {
+                dbConnector.EstablishConnection(ip, userName, password, dbName);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         // disconnect from the db
@@ -206,7 +216,6 @@ namespace WorldWordApp.Game_Logic
         private void GetQuestions(string[] categories)
         {
            questionsList = queryDA.QuestionsGeneration(categories);
-           //questionsList = new List<Question>() {new Question("what is your name?", "Odeya"), new Question("how are you today?", "fine"), new Question("how old are you?","23"), new Question("tired?","yes"), new Question("what is your last name?","shnaps"),new Question("how long?","forever"), new Question("time?","15:30")};
         }
 
         // At the end of each game we insert the new player to the players table
@@ -395,8 +404,10 @@ namespace WorldWordApp.Game_Logic
         {
             answerWithoutDelimiters = "";
             Status = "";
-            NumQuestion += 1;
-            Question q = questionsList[NumQuestion - 1];
+            // choosing random question fron the list.
+            NumQuestion = random.Next(questionsList.Count);
+            Question q = questionsList[NumQuestion];
+            questionsList.RemoveAt(NumQuestion);
             CurrentQuestion = q.QuestionString + "?";
             CurrentAnswer = q.AnswerString;
             string ans = CurrentAnswer;
@@ -456,7 +467,7 @@ namespace WorldWordApp.Game_Logic
         // special chars - chars that will not be hidden
         public bool specialChars(char ch)
         {
-            if (ch == '(' || ch == ')' || ch == ' ' || ch == ':' || ch == ',' || ch == '.')
+            if (ch == '(' || ch == ')' || ch == ' ' || ch == ':' || ch == ',' || ch == '.' || ch == '-')
             {
                 return true;
             }
