@@ -22,7 +22,7 @@ namespace WorldWordApp.View
         private GameLogic gameLogic;
         private int round;
         private bool endRound;
-        private const int numRounds = 3;
+        private const int numRounds = 21;
 
         public PlayGame()
         {
