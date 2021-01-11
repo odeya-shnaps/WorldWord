@@ -167,7 +167,6 @@ namespace WorldWordApp.Game_Logic
                 NotifyProperyChanged("Turn");
             }
         }
-
         public Brush PlayerColor
         {
             get 
@@ -213,9 +212,17 @@ namespace WorldWordApp.Game_Logic
         }
 
         // get the question to the game from the db.
-        private void GetQuestions(string[] categories)
+        private bool GetQuestions(string[] categories)
         {
-           questionsList = queryDA.QuestionsGeneration(categories);
+            try
+            {
+                questionsList = queryDA.QuestionsGeneration(categories);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         // At the end of each game we insert the new player to the players table
@@ -356,14 +363,13 @@ namespace WorldWordApp.Game_Logic
         // get all the players fron players table
         public List<Player> GetAllPlayers()
         {
-            return playerDA.GetPlayersList();
+            return playerDA.GetPlayersList();  
         }
 
         // preparations for the game.
-        public void StartGame(string name1, string name2, string[] categories)
+        public bool StartGame(string name1, string name2, string[] categories)
         {
             AddPlayers(name1, name2);
-            GetQuestions(categories);
             numQue = 0;
             Score1 = 0;
             Score2 = 0;
@@ -371,6 +377,11 @@ namespace WorldWordApp.Game_Logic
             question = "";
             turn_of = player1.PlayerName;
             PlayerColor = player1.PlayerColor;
+            if (GetQuestions(categories))
+            {
+                return true;
+            }
+            return false;
         }
 
         // checking if the player answer is correct
@@ -499,10 +510,18 @@ namespace WorldWordApp.Game_Logic
 
         // At the end of each game we update high scores if needed and insert new players 
         // or update old players score if needed in the db.
-        public void EndeGame()
+        public bool EndeGame()
         {
-            UpdateOrInsertPlayers();
-            UpdateHighScores();
+            try
+            {
+                UpdateOrInsertPlayers();
+                UpdateHighScores();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         // get the winner and loser or tie.

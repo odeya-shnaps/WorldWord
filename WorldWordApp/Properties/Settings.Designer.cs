@@ -52,7 +52,7 @@ namespace WorldWordApp.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("world_word_db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("game")]
         public string NameOfDB {
             get {
                 return ((string)(this["NameOfDB"]));

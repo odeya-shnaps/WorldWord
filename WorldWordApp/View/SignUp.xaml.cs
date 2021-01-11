@@ -27,7 +27,8 @@ namespace WorldWordApp.View
         public bool ShowMessage { get; set; }
         public bool IsClosed { get; private set; }
         private DispatcherTimer timer;
-        private bool correctPass;
+        private DispatcherTimer reconnectTimer;
+        private bool isConnect;
 
         public SignUp()
         {
@@ -36,7 +37,10 @@ namespace WorldWordApp.View
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(3);
             timer.Tick += Timer_Tick;
-            correctPass = true;
+            reconnectTimer = new DispatcherTimer();
+            reconnectTimer.Interval = TimeSpan.FromSeconds(1.5);
+            reconnectTimer.Tick += Reconnect_Timer_Tick;
+            isConnect = true;
         }
 
         public void setMainWindow(MainWindow mainWin)
@@ -77,6 +81,7 @@ namespace WorldWordApp.View
         // reset for a new game
         public void ResetDetailes()
         {
+            button1.IsEnabled = true;
             wait.Text = "";
             name1.Text = "";
             name2.Text = "";
@@ -88,12 +93,17 @@ namespace WorldWordApp.View
             password.Visibility = Visibility.Hidden;
             incorrect.Text = "";
             isAdmin.IsChecked = false;
+            reconnect.Visibility = Visibility.Hidden;
 
         }
 
         // back to main window
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            if (!isConnect)
+            {
+                mainWindow.ConnectionFailed();
+            }
             this.Hide();
             this.mainWindow.ShowDialog();
             
@@ -127,18 +137,27 @@ namespace WorldWordApp.View
             {
                 wait.Text = "The Game will Start in a few Seconds...";
                 GameLogic gl = mainWindow.gameLogic;
-                gl.StartGame(name1.Text, name2.Text, GetCategories());
-                game = new PlayGame();
-                game.SetDataContext(gl);
-                game.setMainWindow(mainWindow);
-                // set the admin permission
-                if (isAdmin.IsChecked == true)
+                if (gl.StartGame(name1.Text, name2.Text, GetCategories()))
                 {
-                    game.SetAdminPermission();
+                    game = new PlayGame();
+                    game.SetDataContext(gl);
+                    game.setMainWindow(mainWindow);
+                    // set the admin permission
+                    if (isAdmin.IsChecked == true)
+                    {
+                        game.SetAdminPermission();
+                    }
+                    this.Hide();
+                    this.game.Show();
+                    game.NextRound();
                 }
-                this.Hide();
-                this.game.Show();
-                game.NextRound();
+                else
+                {
+                    mainWindow.isConnect = false;
+                    button1.IsEnabled = false;
+                    wait.Text = "Failed Connecting To DB, please try again...";
+                    reconnect.Visibility = Visibility.Visible;
+                }
             }
             else
             {
@@ -201,6 +220,33 @@ namespace WorldWordApp.View
             passwordBlock.Visibility = Visibility.Hidden;
             password.Visibility = Visibility.Hidden;
             incorrect.Text = "";
+        }
+
+        // tring to reconnect to the db, if can't show message to user and ask him to reconnect.
+        private void reconnect_Click(object sender, RoutedEventArgs e)
+        {
+            wait.Text = "Trying To Connect...";
+            reconnect.IsEnabled = false;
+            isConnect = mainWindow.gameLogic.Connect();
+            reconnectTimer.Start();
+        }
+
+        private void Reconnect_Timer_Tick(object sender, EventArgs e)
+        {
+            reconnectTimer.Stop();
+            if (!isConnect)
+            {
+                reconnect.IsEnabled = true;
+                wait.Text = "Failed Connecting To DB, please try again...";
+                reconnect.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                mainWindow.isConnect = true;
+                button1.IsEnabled = true;
+                wait.Text = "Connected! press SUBMIT to start play";
+                reconnect.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

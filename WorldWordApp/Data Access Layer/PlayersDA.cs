@@ -125,7 +125,7 @@ namespace WorldWordApp.Data_Access_Layer
             }
             else
             {
-                MessageBox.Show("There are no previous players", "no data in db", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There are no previous players", "no data in db", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             return players;

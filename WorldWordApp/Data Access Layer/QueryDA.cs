@@ -36,8 +36,6 @@ namespace WorldWordApp.Data_Access_Layer
         {
             avgNumOfQuestions = TotalQuestionsInGame / categories.Length;
 
-            /*this.updateThread = new Thread(delegate ()
-            {*/
             try
             {
                 // retrieving questions queries from DB
@@ -48,17 +46,11 @@ namespace WorldWordApp.Data_Access_Layer
 
 
             }
-            catch (System.Threading.ThreadAbortException)
-            {
-                // ignoring - do nothing
-            }
             catch (Exception)
             {
-                MessageBox.Show("Failed creating questions for the game", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Failed creating questions for the game", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
-            /*});
-            this.updateThread.Start();*/
-
 
             return questionsList;
         }

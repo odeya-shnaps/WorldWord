@@ -131,6 +131,7 @@ namespace WorldWordApp.DB
             {
                 Console.WriteLine(ex.ToString());
                 CloseConnectionToDB();
+                throw;
             }
         }
 
