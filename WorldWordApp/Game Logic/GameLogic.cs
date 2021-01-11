@@ -167,7 +167,6 @@ namespace WorldWordApp.Game_Logic
                 NotifyProperyChanged("Turn");
             }
         }
-
         public Brush PlayerColor
         {
             get 

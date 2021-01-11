@@ -12,7 +12,7 @@
       <Value Profile="(Default)">1294</Value>
     </Setting>
     <Setting Name="NameOfDB" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">world_word_db</Value>
+      <Value Profile="(Default)">game</Value>
     </Setting>
   </Settings>
 </SettingsFile>
