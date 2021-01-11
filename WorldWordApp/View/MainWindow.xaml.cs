@@ -57,6 +57,7 @@ namespace WorldWordApp.View
             }
         }
         
+        // when connection failed disable the buttons until reconnecting.
         public void ConnectionFailed()
         {
             seePlayers.IsEnabled = false;
@@ -122,7 +123,7 @@ namespace WorldWordApp.View
             sign.ResetDetailes();
             sign.ShowDialog();
         }
-        // move to players window
+        //try to move to players window, if disconnected show message and try reconnect.
         private void seePlayers_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -137,9 +138,9 @@ namespace WorldWordApp.View
             {
                 isConnect = false;
                 ConnectionFailed();
-            }  
+            }
         }
-        // move to records window.
+        //try to move to higj scores window, if disconnected show message and try reconnect.
         private void seeRecords_Click(object sender, RoutedEventArgs e)
         {
             // set the high scores list in records window.
