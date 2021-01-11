@@ -22,7 +22,7 @@ namespace WorldWordApp.View
         private GameLogic gameLogic;
         private int round;
         private bool endRound;
-        private const int numRounds = 3;
+        private const int numRounds = 21;
 
         public PlayGame()
         {
@@ -86,9 +86,14 @@ namespace WorldWordApp.View
         //player wants to submit an answer
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            bool ans = false;
             // check the answer, if correct show appropriate resropnse and move to next question,
             // if not, show show appropriate resropnse for a few second and wait for other answer.
-            bool ans = gameLogic.IsCorrectAnswer(answer.Text, seconds);
+            if (seconds >= 0)
+            {
+                ans = gameLogic.IsCorrectAnswer(answer.Text, seconds);
+            }
+            
             if (ans == true)
             {
                 timer.Stop();
@@ -127,6 +132,8 @@ namespace WorldWordApp.View
             }
             else
             {
+                submit.IsEnabled = false;
+                change_question.IsEnabled = false;
                 timer.Stop();
                 gameLogic.Status = "The Correct Answer Is:\n" + true_answer.Text;
                 endRound = true;
@@ -170,6 +177,7 @@ namespace WorldWordApp.View
             }
             else
             {
+                submit.IsEnabled = true;
                 roundNum.Text = round.ToString();
                 gameLogic.ChangeTurn();
                 change_question.IsEnabled = true;
@@ -188,6 +196,8 @@ namespace WorldWordApp.View
         {
             answer.Text = "";
             missing_answer.Text = "";
+            cheats.IsEnabled = false;
+            submit.IsEnabled = true;
             Winner winner = new Winner();
             winner.setMainWindow(mainWindow);
             // insert or update players and scores if needed.

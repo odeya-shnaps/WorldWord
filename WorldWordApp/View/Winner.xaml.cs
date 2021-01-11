@@ -75,7 +75,7 @@ namespace WorldWordApp.View
                 }
             }
         }
-
+        // enter to view from list
         public void SetWinnerAndScore(Player win, Player lose, bool tie)
         {
             winner = win;
@@ -100,6 +100,7 @@ namespace WorldWordApp.View
         // connection failed showing to the user and trying to connect
         private void ConnectionFailed(string message, bool keepMain)
         {
+            isConnect = false;
             if (keepMain)
             {
                 button.IsEnabled = false;
@@ -114,14 +115,18 @@ namespace WorldWordApp.View
         {
             this.mainWindow = mainWin;
         }
-
+        // move to main window, show massage if disconnect and try reconnect.
         private void toMainWindow_Click(object sender, RoutedEventArgs e)
         {
+            if(!isConnect)
+            {
+                mainWindow.ConnectionFailed();
+            }
             ShowMessage = false;
             this.Close();
             mainWindow.Show();
         }
-
+        // try to move to high scores, if disconnected show message and try reconnect.
         private void toScores_Click(object sender, RoutedEventArgs e)
         {
             Records records = mainWindow.records;
@@ -154,11 +159,12 @@ namespace WorldWordApp.View
             if (!isConnect)
             {
                 reconnect.IsEnabled = true;
-                error.Text = "Connection To DB Failed, can't save game details. try to reconnect...";
+                error.Text = "Connection To DB Failed.\n try to reconnect...";
                 reconnect.Visibility = Visibility.Visible;
             }
             else
             {
+                // connected but need to save game details first
                 if (!toScore)
                 {
                     error.Text = "Connected! saving game details...";
@@ -175,6 +181,7 @@ namespace WorldWordApp.View
                         ConnectionFailed("Connection To DB Failed, can't save game details. try to reconnect...", true);
                     }
                 }
+                // connected, we can press high score now (disconnect after saving when we want to see high scores).
                 else
                 {
                     button1.IsEnabled = true;

@@ -184,12 +184,13 @@ namespace WorldWordApp.Game_Logic
         public bool Connect()
         {
             string ip = Properties.Settings.Default["Ip"].ToString();
+            uint port = Convert.ToUInt32(Properties.Settings.Default["Port"]);
             string userName = Properties.Settings.Default["UserName"].ToString();
             string password = Properties.Settings.Default["Password"].ToString();
             string dbName = Properties.Settings.Default["NameOfDB"].ToString();
             try
             {
-                dbConnector.EstablishConnection(ip, userName, password, dbName);
+                dbConnector.EstablishConnection(ip, port, userName, password, dbName);
                 return true;
             }
             catch (Exception)

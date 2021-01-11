@@ -19,12 +19,13 @@ namespace WorldWordApp.DB
         /*
          * Establishing connection to the MySql DataBase
          */
-        public void EstablishConnection(string ip, string userName, string password, string dbName)
+        public void EstablishConnection(string ip, uint port, string userName, string password, string dbName)
         {
             try
             {
                 MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
                 builder.Server = ip;
+                builder.Port = port;
                 builder.UserID = userName;
                 builder.Password = password;
                 builder.Database = dbName;

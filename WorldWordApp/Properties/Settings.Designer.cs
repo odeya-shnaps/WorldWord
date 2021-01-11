@@ -58,5 +58,14 @@ namespace WorldWordApp.Properties {
                 return ((string)(this["NameOfDB"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3306")]
+        public string Port {
+            get {
+                return ((string)(this["Port"]));
+            }
+        }
     }
 }
