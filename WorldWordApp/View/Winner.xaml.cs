@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using WorldWordApp.Objects;
 
 namespace WorldWordApp.View
@@ -26,11 +27,24 @@ namespace WorldWordApp.View
         private Player winner;
         private Player loser;
         private bool isTie;
+        public bool isConnect;
+        private DispatcherTimer reconnectTimer;
+        private DispatcherTimer timer;
+        private bool toScore;
 
         public Winner()
         {
             InitializeComponent();
             ShowMessage = true;
+            reconnectTimer = new DispatcherTimer();
+            reconnectTimer.Interval = TimeSpan.FromSeconds(1.5);
+            reconnectTimer.Tick += Reconnect_Timer_Tick;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(3);
+            timer.Tick += Timer_Tick;
+            error.Text = "";
+            isConnect = true;
+            toScore = false;
         }
 
         // message box pop when closing, if just moving to another window don't pop.
@@ -77,7 +91,23 @@ namespace WorldWordApp.View
             player2.Text = lose.PlayerName;
             score1.Text = win.CurrentScore.ToString()+ " points";
             score2.Text = lose.CurrentScore.ToString()+ " points";
+            if (!isConnect)
+            {
+                ConnectionFailed("Connection To DB Failed, can't save game details. try to reconnect...", true);
+            }
+        }
 
+        // connection failed showing to the user and trying to connect
+        private void ConnectionFailed(string message, bool keepMain)
+        {
+            if (keepMain)
+            {
+                button.IsEnabled = false;
+            }
+            button1.IsEnabled = false;
+            error.Text = message;
+            reconnect.IsEnabled = true;
+            reconnect.Visibility = Visibility.Visible;
         }
 
         public void setMainWindow(MainWindow mainWin)
@@ -95,10 +125,70 @@ namespace WorldWordApp.View
         private void toScores_Click(object sender, RoutedEventArgs e)
         {
             Records records = mainWindow.records;
-            records.SetAllScores(mainWindow.gameLogic.GetHighScores());
-            ShowMessage = false;
-            records.Show();
-            this.Close();
+            try
+            {
+                records.SetAllScores(mainWindow.gameLogic.GetHighScores());
+                ShowMessage = false;
+                records.Show();
+                this.Close();
+            }
+            catch(Exception)
+            {
+                ConnectionFailed("Failed Connecting To DB to get high scores. try again...", false);
+                toScore = true;
+            }
+        }
+
+        // tring to reconnect to the db, if can't show message to user and ask him to reconnect.
+        private void reconnect_Click(object sender, RoutedEventArgs e)
+        {
+            error.Text = "Trying To Connect...";
+            reconnect.IsEnabled = false;
+            isConnect = mainWindow.gameLogic.Connect();
+            reconnectTimer.Start();
+        }
+
+        private void Reconnect_Timer_Tick(object sender, EventArgs e)
+        {
+            reconnectTimer.Stop();
+            if (!isConnect)
+            {
+                reconnect.IsEnabled = true;
+                error.Text = "Connection To DB Failed, can't save game details. try to reconnect...";
+                reconnect.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                if (!toScore)
+                {
+                    error.Text = "Connected! saving game details...";
+                    if (mainWindow.gameLogic.EndeGame())
+                    {
+                        timer.Start();
+                        button.IsEnabled = true;
+                        button1.IsEnabled = true;
+                        reconnect.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        isConnect = false;
+                        ConnectionFailed("Connection To DB Failed, can't save game details. try to reconnect...", true);
+                    }
+                }
+                else
+                {
+                    button1.IsEnabled = true;
+                    error.Text = "Connected! you can press high scores";
+                    reconnect.Visibility = Visibility.Hidden;
+                    timer.Start();
+                }
+            }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            error.Text = "";
         }
     }
 }

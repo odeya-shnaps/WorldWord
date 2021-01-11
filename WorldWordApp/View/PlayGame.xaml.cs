@@ -22,7 +22,7 @@ namespace WorldWordApp.View
         private GameLogic gameLogic;
         private int round;
         private bool endRound;
-        private const int numRounds = 21;
+        private const int numRounds = 3;
 
         public PlayGame()
         {
@@ -188,12 +188,15 @@ namespace WorldWordApp.View
         {
             answer.Text = "";
             missing_answer.Text = "";
-            // insert or update players and scores if needed.
-            gameLogic.EndeGame();
             Winner winner = new Winner();
+            winner.setMainWindow(mainWindow);
+            // insert or update players and scores if needed.
+            if (!gameLogic.EndeGame())
+            {
+                winner.isConnect = false;
+            }
             List<Player> order = gameLogic.GetWinnerAndLoser();
             winner.SetWinnerAndScore(order[0], order[1], gameLogic.IsTie());
-            winner.setMainWindow(mainWindow);
             ShowMessage = false;
             winner.Show();
             this.Close();

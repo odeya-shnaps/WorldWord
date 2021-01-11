@@ -30,7 +30,7 @@ namespace WorldWordApp.View
         private SignUp sign;
         public bool ShowMessage { get; set; }
         public GameLogic gameLogic;
-        private bool isConnect;
+        public bool isConnect;
         private DispatcherTimer timer;
 
         public MainWindow()
@@ -53,12 +53,18 @@ namespace WorldWordApp.View
             isConnect = gameLogic.Connect();
             if (!isConnect)
             {
-                seePlayers.IsEnabled = false;
-                seeRecords.IsEnabled = false;
-                startPlaying.IsEnabled = false;
-                failedConnect.Text = "Failed Connecting To DB,\n please try again...";
-                reconnect.Visibility = Visibility.Visible;
+                ConnectionFailed();
             }
+        }
+        
+        public void ConnectionFailed()
+        {
+            seePlayers.IsEnabled = false;
+            seeRecords.IsEnabled = false;
+            startPlaying.IsEnabled = false;
+            failedConnect.Text = "Failed Connecting To DB,\n please try again...";
+            reconnect.IsEnabled = true;
+            reconnect.Visibility = Visibility.Visible;
         }
 
         // message box pop when closing, if just moving to another window don't pop.
@@ -119,19 +125,35 @@ namespace WorldWordApp.View
         // move to players window
         private void seePlayers_Click(object sender, RoutedEventArgs e)
         {
-            // set the player list field in players window.
-            players.SetAllPlayers(gameLogic.GetAllPlayers());
-            players.SetPlayersList();
-            this.Hide();
-            players.ShowDialog();
+            try
+            {
+                // set the player list field in players window.
+                players.SetAllPlayers(gameLogic.GetAllPlayers());
+                players.SetPlayersList();
+                this.Hide();
+                players.ShowDialog();
+            }
+            catch(Exception)
+            {
+                isConnect = false;
+                ConnectionFailed();
+            }  
         }
         // move to records window.
         private void seeRecords_Click(object sender, RoutedEventArgs e)
         {
             // set the high scores list in records window.
-            records.SetAllScores(gameLogic.GetHighScores());
-            this.Hide();
-            records.ShowDialog();
+            try
+            {
+                records.SetAllScores(gameLogic.GetHighScores());
+                this.Hide();
+                records.ShowDialog();
+            }
+            catch(Exception)
+            {
+                isConnect = false;
+                ConnectionFailed();
+            }
         }
 
         // tring to reconnect to the db, if can't show message to user and ask him to reconnect.
