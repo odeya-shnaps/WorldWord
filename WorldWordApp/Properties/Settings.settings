@@ -14,5 +14,8 @@
     <Setting Name="NameOfDB" Type="System.String" Scope="Application">
       <Value Profile="(Default)">game</Value>
     </Setting>
+    <Setting Name="Port" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">3306</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

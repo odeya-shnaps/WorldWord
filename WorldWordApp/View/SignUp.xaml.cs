@@ -137,6 +137,7 @@ namespace WorldWordApp.View
             {
                 wait.Text = "The Game will Start in a few Seconds...";
                 GameLogic gl = mainWindow.gameLogic;
+                // if disconnect, show message to user and ask him to reconnect
                 if (gl.StartGame(name1.Text, name2.Text, GetCategories()))
                 {
                     game = new PlayGame();
@@ -154,9 +155,11 @@ namespace WorldWordApp.View
                 else
                 {
                     mainWindow.isConnect = false;
+                    isConnect = false;
                     button1.IsEnabled = false;
                     wait.Text = "Failed Connecting To DB, please try again...";
                     reconnect.Visibility = Visibility.Visible;
+                    reconnect.IsEnabled = true;
                 }
             }
             else
@@ -240,6 +243,7 @@ namespace WorldWordApp.View
                 wait.Text = "Failed Connecting To DB, please try again...";
                 reconnect.Visibility = Visibility.Visible;
             }
+            // succeed reconnect
             else
             {
                 mainWindow.isConnect = true;
